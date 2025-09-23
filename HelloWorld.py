@@ -1,6 +1,7 @@
 
 import tkinter
 from tkinter.constants import *
+from tkinter import *
 tk = tkinter.Tk()
 tk.geometry("600x600")
 frame = tkinter.Frame(tk, relief=RIDGE, borderwidth=10)
