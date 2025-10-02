@@ -22,9 +22,24 @@ class InventoryDatabase:
             for row in reader:
                 data.append(row)
         return data
-
+    
     # Using the 'def read_item_dicts(filepath)' function to read the CSV file
-    csv_dictionary = read_item_dicts('JJInventoryDatabase.csv')
+    # 1D and has labels with the values
+    # row 0 is first item
+    csv_w_label = read_item_dicts('JJInventoryDatabase.csv')
+    
+    # 2D and only has values 
+    # row 0 is the labels
+    with open('JJInventoryDatabase.csv', newline='') as f:
+        reader = csv.reader(f)
+        data_values_2D = list(reader)
+        
+    
+    
+    
+
+    
+    
 
     # And then printing the list of dictionaries
     # print("         Print dictionary list:")  
