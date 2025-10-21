@@ -47,8 +47,6 @@ label.pack(fill=X, expand=1)
 # Remove three quoatations from top and bottom and run
 
 """
-from customtkinter import *
-
 from tkinter import *
 
 UserSignInPage = Tk()
