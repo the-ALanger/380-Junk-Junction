@@ -42,3 +42,38 @@ frame.pack(fill=BOTH, expand=1)
 label = tkinter.Label(frame, text="Hello, World")
 label.pack(fill=X, expand=1)
 """
+
+# Sign In Screen
+# Remove three quoatations from top and bottom and run
+
+"""
+from customtkinter import *
+
+from tkinter import *
+
+UserSignInPage = Tk()
+UserSignInPage.geometry("200x100")
+
+UserSignInPage.title('Sign In')
+
+
+Label(UserSignInPage, text='Email').grid(row=0)
+Label(UserSignInPage, text='Password').grid(row=1)
+
+e1 = Entry(UserSignInPage)
+e2 = Entry(UserSignInPage)
+
+e1.grid(row=0, column=1)
+e2.grid(row=1, column=1)
+
+#Sign In Button
+button = Button(UserSignInPage, text='Sign In', width=10, command=UserSignInPage.destroy)
+button.grid(row=2, column=1)
+
+
+#Exit App Button
+button = Button(UserSignInPage, text='Exit App', width=10, command=UserSignInPage.destroy)
+button.grid(row=4, column=1)
+
+mainloop()
+"""
