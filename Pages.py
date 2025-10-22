@@ -3,35 +3,32 @@ import tkinter
 from tkinter.constants import *
 from tkinter import *
 
-homepage = tkinter.Tk()
-homepage.geometry("800x600")
-frame = tkinter.Frame(homepage, relief=RIDGE, borderwidth=10)
+UserPage = Tk()
+UserPage.geometry("800x600")
+frame = Frame(UserPage, relief=RIDGE, borderwidth=10)
 frame.pack(fill=BOTH, expand=1)
 
-homepage.title('Junk Junction')
+#Page Title
+UserPage.title('Junk Junction')
 
-title = tkinter.Label(frame, text = 'Junk Junction', bg="darkred", font = ("Times New Roman", 12))
-title.pack(fill=X, side=TOP, expand=1)
+#Top Title
+title = Label(frame, text = 'Junk Junction', bg="darkred", fg = "white", font = ("Times New Roman", 20), anchor="center")
+title.pack(fill=X, side=TOP)
 
-"""
-Label(homepage, text='First Name').grid(row=1)
-Label(homepage, text='Last Name').grid(row=1)
-e1 = Entry(homepage)
-e2 = Entry(homepage)
-e1.grid(row=0, column=0)
-e2.grid(row=1, column=0)
-"""
+#Left Banner Frame
+left_banner = Frame(frame, width=50, bg="#453b3b")
+left_banner.pack(side="left", fill="y")
 
-button = tkinter.Button(frame, text='Return to Desktop', width=15, command=homepage.destroy)
-button.pack()
-"""
-label = tkinter.Label(frame, text="Junk Junction")
-label.pack(fill=X, expand=2, side=TOP)
+# Right Banner Frame
+right_banner = Frame(frame, width=50, bg="#453b3b")
+right_banner.pack(side="right", fill="y")
 
-button = tkinter.Button(frame, text="Exit", command=tk.destroy)
-button.pack(side=RIGHT)
-"""
-homepage.mainloop()
+#Exit Button
+button = Button(frame, text='Return to Desktop', width=15, command=UserPage.destroy)
+button.pack(side=BOTTOM, padx=10)
+
+
+UserPage.mainloop()
 
 
 """tk = tkinter.Tk()
@@ -47,8 +44,6 @@ label.pack(fill=X, expand=1)
 # Remove three quoatations from top and bottom and run
 
 """
-from tkinter import *
-
 UserSignInPage = Tk()
 UserSignInPage.geometry("200x100")
 
