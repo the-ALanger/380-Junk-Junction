@@ -24,7 +24,7 @@ right_banner = Frame(frame, width=50, bg="#453b3b")
 right_banner.pack(side="right", fill="y")
 
 #Exit Button
-button = Button(frame, text='Return to Desktop', width=15, command=UserPage.destroy)
+button = Button(frame, text='Return to Desktop', width=15, command=UserPage.op)
 button.pack(side=BOTTOM, padx=10)
 
 
