@@ -2,6 +2,8 @@ import csv
 import tkinter
 from tkinter.constants import *
 from tkinter import *
+from InventoryDatabase import *
+
 
 tk = tkinter.Tk()
 tk.geometry("600x600")

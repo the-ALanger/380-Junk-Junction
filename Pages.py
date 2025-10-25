@@ -29,6 +29,7 @@ button = Button(UserSignInPage, text='Exit App', width=10, command=UserSignInPag
 button.grid(row=4, column=1)
 """
 
+#Create User page to be 800x600, frame with borderwidth 10
 UserPage = Tk()
 UserPage.geometry("800x600")
 frame = Frame(UserPage, relief=RIDGE, borderwidth=10)
@@ -38,21 +39,22 @@ frame.pack(fill=BOTH, expand=1)
 UserPage.title('Junk Junction')
 
 #Top Title
-title = Label(frame, text = 'Junk Junction', bg="darkred", fg = "white", font = ("Times New Roman", 20), anchor="center")
+title = Label(frame, text = 'Junk Junction', 
+              bg="#772323", fg = "white", font = ("Times New Roman", 20), 
+              anchor="center")
 title.pack(fill=X, side=TOP)
 
 #Left Banner Frame
-left_banner = Frame(frame, width=50, bg="#453b3b")
+left_banner = Frame(frame, width=50, bg="#772323")
 left_banner.pack(side="left", fill="y")
 
 # Right Banner Frame
-right_banner = Frame(frame, width=50, bg="#453b3b")
+right_banner = Frame(frame, width=50, bg="#772323")
 right_banner.pack(side="right", fill="y")
 
 #Exit Button
 button = Button(frame, text='Return to Desktop', width=15, command=UserPage.destroy)
 button.pack(side=BOTTOM, padx=10)
-
 
 UserPage.mainloop()
 
