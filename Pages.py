@@ -1,7 +1,33 @@
 
-import tkinter
-from tkinter.constants import *
+import tkinter as tk
 from tkinter import *
+from tkinter.constants import *
+
+"""
+UserSignInPage = Tk()
+UserSignInPage.geometry("200x100")
+
+UserSignInPage.title('Sign In')
+
+
+Label(UserSignInPage, text='Email').grid(row=0)
+Label(UserSignInPage, text='Password').grid(row=1)
+
+e1 = Entry(UserSignInPage)
+e2 = Entry(UserSignInPage)
+
+e1.grid(row=0, column=1)
+e2.grid(row=1, column=1)
+
+#Sign In Button
+button = Button(UserSignInPage, text='Sign In', width=10, command=UserSignInPage.destroy)
+button.grid(row=2, column=1)
+
+
+#Exit App Button
+button = Button(UserSignInPage, text='Exit App', width=10, command=UserSignInPage.destroy)
+button.grid(row=4, column=1)
+"""
 
 UserPage = Tk()
 UserPage.geometry("800x600")
@@ -24,14 +50,15 @@ right_banner = Frame(frame, width=50, bg="#453b3b")
 right_banner.pack(side="right", fill="y")
 
 #Exit Button
-button = Button(frame, text='Return to Desktop', width=15, command=UserPage.op)
+button = Button(frame, text='Return to Desktop', width=15, command=UserPage.destroy)
 button.pack(side=BOTTOM, padx=10)
 
 
 UserPage.mainloop()
 
 
-"""tk = tkinter.Tk()
+"""
+tk = tkinter.Tk()
 tk.geometry("600x600")
 frame = tkinter.Frame(tk, relief=RIDGE, borderwidth=10)
 frame.pack(fill=BOTH, expand=1)
