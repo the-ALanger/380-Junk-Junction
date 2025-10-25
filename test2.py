@@ -7,13 +7,12 @@ page = tk.Tk()
 page.geometry("800x600")
 page.title('Junk Junction')
 
-
 # ------------------ Sign-In Page ------------------ #
 UserSignInPage = Frame(page)
 UserSignInPage.grid(row=0, column=0, sticky='nsew')
 
-Label(UserSignInPage, text='Email').grid(row=0)
-Label(UserSignInPage, text='Password').grid(row=1)
+Label(UserSignInPage, text='Email').grid(row=0, column=0)
+Label(UserSignInPage, text='Password').grid(row=1, column=0)
 
 e1 = Entry(UserSignInPage)
 e2 = Entry(UserSignInPage, show="*")
@@ -48,9 +47,8 @@ SignIn_Button = Button(UserSignInPage, text='Sign In', width=10,
                        command=lambda: HomePage.tkraise())
 SignIn_Button.grid(row=2, column=1, pady=10)
 
-ExitApp_Button = Button(UserSignInPage, text='Exit App', width=10,
-                        command=page.destroy)
-ExitApp_Button.grid(row=3, column=1, pady=10)
+ExitApp_Button = Button(UserSignInPage, text='Exit App', width=10, command=page.destroy)
+ExitApp_Button.grid(row=3, column=1)
 
 # ------------------ Initialize ------------------ #
 UserSignInPage.tkraise()  # Show sign-in page first
