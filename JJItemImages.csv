@@ -1,4 +1,4 @@
-itemID, image1, image2, image3, image4
-1001, bicycle1.jpg, bicycle2.jpg, bicycle3.jpg, bicycle4.jpg,
-1002, laptop1.jpg, laptop2.jpg, laptop3.jpg, laptop4.jpg,
-1003, chair1.jpg, chair2.jpg, chair3.jpg, chair4.jpg,
+itemID, image1ID, image2ID, image3ID, image4iD
+1001,10001,10002,10003,10004
+1002,20001,20002,20003,20004
+1003,30001,30002,30003,30004
