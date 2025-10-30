@@ -13,7 +13,7 @@ with open("images/bird.jpeg", "w") as f: f.write("")
 
 
 # Read the CSV file
-df = pd.read_csv('images.csv')
+df = pd.read_csv('JJImages.csv')
 
 # Iterate through the DataFrame and access images
 for index, row in df.iterrows():
