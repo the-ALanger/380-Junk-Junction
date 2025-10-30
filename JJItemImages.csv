@@ -1,4 +1,3 @@
-itemID, image1ID, image2ID, image3ID, image4iD
-1001,10001,10002,10003,10004
-1002,20001,20002,20003,20004
-1003,30001,30002,30003,30004
+item_ID, image1_path, image2_path, image3_path, image4_path
+1001, images/Charzard.png, images/Charzard2.png, images/Charzard3.png, images/Charzard4.png
+1002, 
