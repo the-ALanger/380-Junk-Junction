@@ -1,101 +1,103 @@
-
 import tkinter as tk
 from tkinter import *
 from tkinter.constants import *
 
-"""
-UserSignInPage = Tk()
-UserSignInPage.geometry("200x100")
+#------------------ Application Class ------------------ #
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Junk Junction")
+        self.geometry("230x130")  # start size for sign-in
 
-UserSignInPage.title('Sign In')
+        container = tk.Frame(self)
+        container.pack(fill="both", expand=True)
+        container.grid_rowconfigure(0, weight=1)
+        container.grid_columnconfigure(0, weight=1)
 
+        self.frames = {}
+        for F in (SignInPage, HomePage, UserPage):
+            page_name = F.__name__
+            frame = F(parent=container, controller=self)
+            frame.grid(row=0, column=0, sticky="nsew")
+            self.frames[page_name] = frame
 
-Label(UserSignInPage, text='Email').grid(row=0)
-Label(UserSignInPage, text='Password').grid(row=1)
+        self.show_frame("SignInPage")
 
-e1 = Entry(UserSignInPage)
-e2 = Entry(UserSignInPage)
+    def show_frame(self, page_name):
+        # map page to desired window geometry
+        sizes = {
+            "SignInPage": "230x130",
+            "HomePage": "800x600",
+            "UserPage": "800x600",
+        }
+        geom = sizes.get(page_name)
+        if geom:
+            self.geometry(geom)
+        frame = self.frames[page_name]
+        frame.tkraise()
+        
+#------------------ Sign-In Page ------------------ #
+class SignInPage(tk.Frame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+        self.controller = controller
 
-e1.grid(row=0, column=1)
-e2.grid(row=1, column=1)
+        tk.Label(self, text="Email").grid(row=0, column=0)
+        tk.Label(self, text="Password").grid(row=1, column=0)
 
-#Sign In Button
-button = Button(UserSignInPage, text='Sign In', width=10, command=UserSignInPage.destroy)
-button.grid(row=2, column=1)
+        e1 = tk.Entry(self)
+        e2 = tk.Entry(self, show="*")
+        e1.grid(row=0, column=1)
+        e2.grid(row=1, column=1)
 
+        tk.Button(self, text="Sign In", width=10,
+                  command=lambda: controller.show_frame("HomePage")).grid(row=2, column=1, pady=10)
+        tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=3, column=1)
 
-#Exit App Button
-button = Button(UserSignInPage, text='Exit App', width=10, command=UserSignInPage.destroy)
-button.grid(row=4, column=1)
-"""
+#------------------ Home Page ------------------ #
+class HomePage(tk.Frame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+        self.controller = controller
 
-#Create User page to be 800x600, frame with borderwidth 10
-UserPage = Tk()
-UserPage.geometry("800x600")
-frame = Frame(UserPage, relief=RIDGE, borderwidth=10)
-frame.pack(fill=BOTH, expand=1)
+        title = tk.Label(self, text='Junk Junction', bg="#791919", fg="white",
+                         font=("Times New Roman", 20), anchor="center")
+        title.pack(fill="x", side="top")
 
-#Page Title
-UserPage.title('Junk Junction')
+        left_banner = tk.Frame(self, width=50, bg="#312b2b")
+        left_banner.pack(side="left", fill="y")
 
-#Top Title
-title = Label(frame, text = 'Junk Junction', 
-              bg="#772323", fg = "white", font = ("Times New Roman", 20), 
-              anchor="center")
-title.pack(fill=X, side=TOP)
+        right_banner = tk.Frame(self, width=50, bg="#312b2b")
+        right_banner.pack(side="right", fill="y")
+        
+        center_area = tk.Frame(self, bg="#f0f0f0")
 
-#Left Banner Frame
-left_banner = Frame(frame, width=50, bg="#772323")
-left_banner.pack(side="left", fill="y")
+        tk.Button(self, text='Log Out', width=15,
+                  command=lambda: controller.show_frame("SignInPage")).pack(side="bottom", pady=5)
+        tk.Button(self, text='User Page', width=15,
+                  command=lambda: controller.show_frame("UserPage")).pack(side="bottom", pady=5)
+    
+#------------------ User Page ------------------ #
+class UserPage(tk.Frame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+        self.controller = controller
+        
+        title = tk.Label(self, text='User Page', bg="#791919", fg="white",
+                         font=("Times New Roman", 20), anchor="center")
+        title.pack(fill="x", side="top")
 
-# Right Banner Frame
-right_banner = Frame(frame, width=50, bg="#772323")
-right_banner.pack(side="right", fill="y")
+        left_banner = tk.Frame(self, width=50, bg="#312b2b")
+        left_banner.pack(side="left", fill="y")
 
-#Exit Button
-button = Button(frame, text='Return to Desktop', width=15, command=UserPage.destroy)
-button.pack(side=BOTTOM, padx=10)
+        right_banner = tk.Frame(self, width=50, bg="#312b2b")
+        right_banner.pack(side="right", fill="y")
 
-UserPage.mainloop()
+        tk.Button(self, text="Home Page", width=15,
+                  command=lambda: controller.show_frame("HomePage")).pack(side="bottom", pady=5)
+        tk.Button(self, text='Log Out', width=15,
+                  command=lambda: controller.show_frame("SignInPage")).pack(side="left", pady=5)
 
-
-"""
-tk = tkinter.Tk()
-tk.geometry("600x600")
-frame = tkinter.Frame(tk, relief=RIDGE, borderwidth=10)
-frame.pack(fill=BOTH, expand=1)
-
-label = tkinter.Label(frame, text="Hello, World")
-label.pack(fill=X, expand=1)
-"""
-
-# Sign In Screen
-# Remove three quoatations from top and bottom and run
-
-"""
-UserSignInPage = Tk()
-UserSignInPage.geometry("200x100")
-
-UserSignInPage.title('Sign In')
-
-
-Label(UserSignInPage, text='Email').grid(row=0)
-Label(UserSignInPage, text='Password').grid(row=1)
-
-e1 = Entry(UserSignInPage)
-e2 = Entry(UserSignInPage)
-
-e1.grid(row=0, column=1)
-e2.grid(row=1, column=1)
-
-#Sign In Button
-button = Button(UserSignInPage, text='Sign In', width=10, command=UserSignInPage.destroy)
-button.grid(row=2, column=1)
-
-
-#Exit App Button
-button = Button(UserSignInPage, text='Exit App', width=10, command=UserSignInPage.destroy)
-button.grid(row=4, column=1)
-
-mainloop()
-"""
+if __name__ == "__main__":
+    app = App()
+    app.mainloop()
