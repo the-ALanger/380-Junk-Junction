@@ -1,16 +1,16 @@
 
-import tkinter
+import tkinter as tk
 from tkinter.constants import *
 from tkinter import *
 
-homepage = tkinter.Tk()
+homepage = tk.Tk()
 homepage.geometry("800x600")
-frame = tkinter.Frame(homepage, relief=RIDGE, borderwidth=10)
+frame = tk.Frame(homepage, relief=RIDGE, borderwidth=10)
 frame.pack(fill=BOTH, expand=1)
 
 homepage.title('Junk Junction')
 
-title = tkinter.Label(frame, text = 'Junk Junction', bg="darkred", font = ("Times New Roman", 12))
+title = tk.Label(frame, text = 'Junk Junction', bg="darkred", font = ("Times New Roman", 12))
 title.pack(fill=X, side=TOP, expand=1)
 
 """
@@ -22,7 +22,7 @@ e1.grid(row=0, column=0)
 e2.grid(row=1, column=0)
 """
 
-button = tkinter.Button(frame, text='Return to Desktop', width=15, command=homepage.destroy)
+button = tk.Button(frame, text='Return to Desktop', width=15, command=homepage.destroy)
 button.pack()
 """
 label = tkinter.Label(frame, text="Junk Junction")
