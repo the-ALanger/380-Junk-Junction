@@ -8,8 +8,6 @@ class Main:
     
     print("\n")
 
-   
-        
     print(InvData.data_values_2D[0][0])
     print(InvData.data_values_2D[1][2])
     print("\n")
