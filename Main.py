@@ -37,3 +37,4 @@ class Main:
     print(UData.data_values_2D[1][0])
     print("\n")
     
+    #We can probably condense all of these different databases to one method that calls based on CSV file name
