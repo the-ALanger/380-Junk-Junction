@@ -58,7 +58,8 @@ class InventoryDatabase:
             )
             itemList.append(Item)
 
-    def get_item_with_id(itemID):
+    # change the method signature to include self
+    def get_item_with_id(self, itemID):
         for item in InventoryDatabase.itemList:
             if item.itemID == str(itemID):
                 return item

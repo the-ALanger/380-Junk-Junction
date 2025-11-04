@@ -1,12 +1,11 @@
 from InventoryDatabase import InventoryDatabase
-from UserDatabse import UserDatabase
+from UserDatabase import UserDatabase
 from ItemInfo import ItemInfo
 
-#Main will show us how we define each method and the result from each print statement
-class Main:
+def main():
     InvData = InventoryDatabase()
     UData = UserDatabase()
-    #Prints the column name and then the associated values in that row: 'itemID, 1003' as an Array
+ #Prints the column name and then the associated values in that row: 'itemID, 1003' as an Array
     print(InvData.csv_w_label[2:4])
     print("\n")
     
@@ -41,7 +40,12 @@ class Main:
     
     #We can probably condense all of these different databases to one method that 
     # calls based on CSV file name
+    item = InvData.get_item_with_id(1002)
+    if item:
+        print(item.itemName)
+    else:
+        print("Item 1002 not found")
 
-    # print("Item Info Test")
-    # print("\n")
-    # print(InvData.get_item_with_id(1002).itemName)
+if __name__ == "__main__":
+    main()
+
