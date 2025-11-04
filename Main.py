@@ -1,5 +1,6 @@
 from InventoryDatabase import InventoryDatabase
 from UserDatabse import UserDatabase
+from ItemInfo import ItemInfo
 
 #Main will show us how we define each method and the result from each print statement
 class Main:
@@ -37,4 +38,10 @@ class Main:
     print(UData.data_values_2D[1][0])
     print("\n")
     
-    #We can probably condense all of these different databases to one method that calls based on CSV file name
+    
+    #We can probably condense all of these different databases to one method that 
+    # calls based on CSV file name
+
+    # print("Item Info Test")
+    # print("\n")
+    # print(InvData.get_item_with_id(1002).itemName)
