@@ -1,6 +1,8 @@
 import tkinter as tk
 from tkinter import *
 from tkinter.constants import *
+import csv
+from tkinter import messagebox
 
 #------------------ Application Class ------------------ #
 class App(tk.Tk):
@@ -29,6 +31,7 @@ class App(tk.Tk):
             "SignInPage": "230x130",
             "HomePage": "800x600",
             "UserPage": "800x600",
+            "CreateUserPage":"800x600"
         }
         geom = sizes.get(page_name)
         if geom:
@@ -52,7 +55,18 @@ class SignInPage(tk.Frame):
 
         tk.Button(self, text="Sign In", width=10,
                   command=lambda: controller.show_frame("HomePage")).grid(row=2, column=1, pady=10)
-        tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=3, column=1)
+        tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=4, column=1)
+        tk.Button(self, text="Create Account", width=10, 
+                  command=lambda: controller.show_frame("CreateUserPage").grid(row=3, column=1, pady=10))
+        
+#------------------ Create-User Page ------------------ #
+class CreateUserPage(tk.Frame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+        self.controller = controller
+
+
+
 
 #------------------ Home Page ------------------ #
 class HomePage(tk.Frame):
@@ -64,10 +78,10 @@ class HomePage(tk.Frame):
                          font=("Times New Roman", 20), anchor="center")
         title.pack(fill="x", side="top")
 
-        left_banner = tk.Frame(self, width=50, bg="#312b2b")
+        left_banner = tk.Frame(self, width=50, bg="#585858")
         left_banner.pack(side="left", fill="y")
 
-        right_banner = tk.Frame(self, width=50, bg="#312b2b")
+        right_banner = tk.Frame(self, width=50, bg="#585858")
         right_banner.pack(side="right", fill="y")
         
         center_area = tk.Frame(self, bg="#f0f0f0")
@@ -87,10 +101,10 @@ class UserPage(tk.Frame):
                          font=("Times New Roman", 20), anchor="center")
         title.pack(fill="x", side="top")
 
-        left_banner = tk.Frame(self, width=50, bg="#312b2b")
+        left_banner = tk.Frame(self, width=50, bg="#585858")
         left_banner.pack(side="left", fill="y")
 
-        right_banner = tk.Frame(self, width=50, bg="#312b2b")
+        right_banner = tk.Frame(self, width=50, bg="#585858")
         right_banner.pack(side="right", fill="y")
 
         tk.Button(self, text="Home Page", width=15,
