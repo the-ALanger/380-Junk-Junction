@@ -1,17 +1,11 @@
 from InventoryDatabase import InventoryDatabase
 from UserDatabase import UserDatabase
-from ItemInfo import ItemInfo
 
 def main():
     InvData = InventoryDatabase()
     UData = UserDatabase()
  #Prints the column name and then the associated values in that row: 'itemID, 1003' as an Array
-    print(InvData.csv_w_label[2:4])
-    print("\n")
-    
-    #Prints the same things as before but as a String
-    print(InvData.csv_w_label[2])
-    print("\n")
+########################################## INVENTORY DATABASE TESTING ###########################################
 
     #Prints the first header of the CSV file
     print(InvData.data_values_2D[0][0])
@@ -45,6 +39,12 @@ def main():
         print(item.itemName)
     else:
         print("Item 1002 not found")
+
+    user = UData.get_user_with_id(69420)
+    if user:
+        print(user.name)
+    else:
+        print("User 69420 not found")
         
 if __name__ == "__main__":
     main()
