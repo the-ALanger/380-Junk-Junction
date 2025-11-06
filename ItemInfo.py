@@ -1,8 +1,8 @@
 class ItemInfo:
     
-    def __init__(self, userID, itemID, itemName, itemDescription, itemCondition, itemCategory, itemPrice, itemStatus):
-        self.userID = userID
+    def __init__(self, itemID, userID, itemName, itemDescription, itemCondition, itemCategory, itemPrice, itemStatus):
         self.itemID = itemID
+        self.userID = userID
         self.itemName = itemName
         self.itemDescription = itemDescription
         self.itemCondition = itemCondition

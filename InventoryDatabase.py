@@ -5,7 +5,7 @@ class InventoryDatabase:
     
     # 2D and only has values 
     # row 0 is the labels
-    with open('JJInventoryDatabase.csv', newline='') as f:
+    with open('CSV/JJInventoryDatabase.csv', newline='') as f:
         reader = csv.reader(f)
         data_values_2D = list(reader)
 
@@ -16,7 +16,7 @@ class InventoryDatabase:
         
     # Creating ItemInfo objects for each row in the CSV
     itemList = []
-    with open('JJInventoryDatabase.csv', newline='') as f:
+    with open('CSV/JJInventoryDatabase.csv', newline='') as f:
         reader = csv.reader(f)
         for row in csv.reader(f):
             Item = ItemInfo(
@@ -37,3 +37,10 @@ class InventoryDatabase:
             if item.itemID == str(itemID):
                 return item
         return None
+    
+    def get_items_with_user_id(self, userID):
+        user_items = []
+        for item in InventoryDatabase.itemList:
+            if item.userID == str(userID):
+                user_items.append(item)
+        return user_items

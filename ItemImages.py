@@ -4,7 +4,7 @@ import csv
 ################################################ CAN & SHOULD be its own class (ie TEMP) ##############################################
 # Load CSV into a 2D list
 image_data = []
-with open("JJItemImages.csv", newline='') as csvfile:
+with open("CSV/JJItemImages.csv", newline='') as csvfile:
     reader = csv.reader(csvfile)
     headers = next(reader)  # Skip header row
     for row in reader:

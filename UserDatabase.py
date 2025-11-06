@@ -7,14 +7,14 @@ class UserDatabase:
     
     # 2D and only has values 
     # row 0 is the labels
-    with open('JJUserDatabase.csv', newline='') as f:
+    with open('CSV/JJUserDatabase.csv', newline='') as f:
         reader = csv.reader(f)
         data_values_2D = list(reader)
         
 
         # Creating ItemInfo objects for each row in the CSV
     userList = []
-    with open('JJUserDatabase.csv', newline='') as f:
+    with open('CSV/JJUserDatabase.csv', newline='') as f:
         reader = csv.reader(f)
         for row in csv.reader(f):
             Item = UserInfo(

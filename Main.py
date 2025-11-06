@@ -37,6 +37,8 @@ def main():
     item = InvData.get_item_with_id(1002)
     if item:
         print(item.itemName)
+        print(item.itemDescription)
+        print(item.itemPrice)
     else:
         print("Item 1002 not found")
 
@@ -46,6 +48,13 @@ def main():
     else:
         print("User 69420 not found")
         
+    user_items = InvData.get_items_with_user_id(77777)
+    if user_items:
+        for item in user_items:
+            print(item.itemName)
+    else:
+        print("No items found for user 77777")
+
 if __name__ == "__main__":
     main()
 
