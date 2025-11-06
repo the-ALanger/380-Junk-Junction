@@ -30,6 +30,10 @@ class App(tk.Tk):
             "HomePage": "800x600",
             "UserPage": "800x600",
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+=======
+            "CreateUser_Page":"800x600"
+>>>>>>> Stashed changes
 =======
             "CreateUser_Page":"800x600"
 >>>>>>> Stashed changes
