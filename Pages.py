@@ -78,9 +78,12 @@ class CreateUserPage(tk.Frame):
         e3 = tk.Entry(self, show="*")
         e1.grid(row=0, column=1)
         e2.grid(row=1, column=1)
-
-
-
+        e3.grid(row=2, column=1)
+        
+        tk.Button(self, text="Create Account", width=15,
+                  command=lambda: (controller.show_frame("SignInPage"), 
+                                   # Placeholder for account creation logic,
+                                   messagebox.showinfo("Account Created", "Your account has been created successfully."))).grid()
 
 #------------------ Home Page ------------------ #
 class HomePage(tk.Frame):
