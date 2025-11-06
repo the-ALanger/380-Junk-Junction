@@ -29,6 +29,10 @@ class App(tk.Tk):
             "SignInPage": "230x130",
             "HomePage": "800x600",
             "UserPage": "800x600",
+<<<<<<< Updated upstream
+=======
+            "CreateUser_Page":"800x600"
+>>>>>>> Stashed changes
         }
         geom = sizes.get(page_name)
         if geom:
@@ -52,7 +56,30 @@ class SignInPage(tk.Frame):
 
         tk.Button(self, text="Sign In", width=10,
                   command=lambda: controller.show_frame("HomePage")).grid(row=2, column=1, pady=10)
+<<<<<<< Updated upstream
         tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=3, column=1)
+=======
+        tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=4, column=1)
+        tk.Button(self, text="Create Account", width=10, 
+                  command=lambda: controller.show_frame("CreateUser_Page").grid(row=3, column=1, pady=10))
+        
+#------------------ Create-User Page ------------------ #
+class CreateUserPage(tk.Frame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+        self.controller = controller
+        
+        tk.Label(self, text="Email").grid(row=0, column=0)
+        tk.Label(self, text="Password").grid(row=1, column=0)
+
+        e1 = tk.Entry(self)
+        e2 = tk.Entry(self, show="*")
+        e1.grid(row=0, column=1)
+        e2.grid(row=1, column=1)
+
+
+
+>>>>>>> Stashed changes
 
 #------------------ Home Page ------------------ #
 class HomePage(tk.Frame):
