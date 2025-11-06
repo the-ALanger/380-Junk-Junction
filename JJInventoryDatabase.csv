@@ -1,6 +1,4 @@
-Item Name,Listed Price,Time,Date, User
-Science Textbook,$4.50,12:00 PM,2023-10-01, Bob
-Math Textbook,$5.20,1:30 PM,2023-10-02, Joe
-Geology Textbook,$6.30,3:15 PM,2023-10-03, Bill
-History Textbook,$4.75,11:45 AM,2023-10-04, Tom
-Biology Textbook,$7.00,2:20 PM,2023-10-05, Tim
+itemID, userID, itemName, itemDescription, itemCondition, itemCategory, itemPrice, itemStatus
+1001, 69420, "Used Bicycle", "A well-maintained used bicycle.", "Good", "Sports", 150.00, "Available"
+1002, 77777, "Laptop", "A slightly used laptop with 8GB RAM.", "Very Good", "Electronics", 450.00, "Sold"
+1003, 77777, "Desk Chair", "Ergonomic desk chair in excellent condition.", "Like New", "Furniture", 85.00, "Available"

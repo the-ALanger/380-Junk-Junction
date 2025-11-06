@@ -3,6 +3,8 @@ from tkinter import *
 from tkinter.constants import *
 import csv
 from tkinter import messagebox
+import csv
+from tkinter import messagebox
 
 #------------------ Application Class ------------------ #
 class App(tk.Tk):
@@ -87,10 +89,10 @@ class HomePage(tk.Frame):
                          font=("Times New Roman", 20), anchor="center")
         title.pack(fill="x", side="top")
 
-        left_banner = tk.Frame(self, width=50, bg="#312b2b")
+        left_banner = tk.Frame(self, width=50, bg="#585858")
         left_banner.pack(side="left", fill="y")
 
-        right_banner = tk.Frame(self, width=50, bg="#312b2b")
+        right_banner = tk.Frame(self, width=50, bg="#585858")
         right_banner.pack(side="right", fill="y")
         
         center_area = tk.Frame(self, bg="#f0f0f0")
@@ -110,10 +112,10 @@ class UserPage(tk.Frame):
                          font=("Times New Roman", 20), anchor="center")
         title.pack(fill="x", side="top")
 
-        left_banner = tk.Frame(self, width=50, bg="#312b2b")
+        left_banner = tk.Frame(self, width=50, bg="#585858")
         left_banner.pack(side="left", fill="y")
 
-        right_banner = tk.Frame(self, width=50, bg="#312b2b")
+        right_banner = tk.Frame(self, width=50, bg="#585858")
         right_banner.pack(side="right", fill="y")
 
         tk.Button(self, text="Home Page", width=15,

@@ -1,3 +1,3 @@
-class Startup:
-    def beginStartup():
+# class Startup:
+#     def beginStartup():
         
