@@ -5,7 +5,7 @@ from ItemInfo import ItemInfo
 def main():
     InvData = InventoryDatabase()
     UData = UserDatabase()
- #Prints the column name and then the associated values in that row: 'itemID, 1003' as an Array
+    #Prints the column name and then the associated values in that row: 'itemID, 1003' as an Array
     print(InvData.csv_w_label[2:4])
     print("\n")
     

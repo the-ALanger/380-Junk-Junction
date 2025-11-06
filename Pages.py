@@ -3,8 +3,6 @@ from tkinter import *
 from tkinter.constants import *
 import csv
 from tkinter import messagebox
-import csv
-from tkinter import messagebox
 
 #------------------ Application Class ------------------ #
 class App(tk.Tk):
@@ -57,10 +55,11 @@ class SignInPage(tk.Frame):
         e2.grid(row=1, column=1)
 
         tk.Button(self, text="Sign In", width=10,
-                  command=lambda: controller.show_frame("HomePage")).grid(row=2, column=1, pady=10)
-        tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=4, column=1)
+                  command=lambda: controller.show_frame("HomePage")).grid(row=2, column=1)
         tk.Button(self, text="Create Account", width=10, 
-                  command=lambda: controller.show_frame("CreateUser_Page").grid(row=3, column=1, pady=10))
+                  command=lambda: controller.show_frame("CreateUser_Page")).grid(row=3, column=1)
+        tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=0 column=1, sticky='s')
+
         
 #------------------ Create-User Page ------------------ #
 class CreateUserPage(tk.Frame):
@@ -68,11 +67,15 @@ class CreateUserPage(tk.Frame):
         super().__init__(parent)
         self.controller = controller
         
-        tk.Label(self, text="Email").grid(row=0, column=0)
-        tk.Label(self, text="Password").grid(row=1, column=0)
+        tk.Label(self, text="Create User Account", font=("Arial", 16)).grid(row=0, columnspan=2, pady=10)
+        
+        tk.Label(self, text="Name").grid(row=0, column=0)
+        tk.Label(self, text="Email").grid(row=1, column=0)
+        tk.Label(self, text="Password").grid(row=2, column=0)
 
         e1 = tk.Entry(self)
-        e2 = tk.Entry(self, show="*")
+        e2 = tk.Entry(self)
+        e3 = tk.Entry(self, show="*")
         e1.grid(row=0, column=1)
         e2.grid(row=1, column=1)
 
