@@ -4,6 +4,33 @@ from tkinter.constants import *
 import csv
 from tkinter import messagebox
 
+def CreateAcc_Data_To_csv(entry_field1, entry_field2, entry_field3):
+    # 1. Get the string from the Entry widget
+    data1 = entry_field1.get()
+    data2 = entry_field2.get()
+    data3 = entry_field3.get()
+    IDskip = ""
+    # 2. Open the CSV file in append mode ('a')
+    # # Use newline='' for proper CSV handling in Python 3
+    if not data1 or not data2 or not data3:
+        messagebox.showwarning("Input Error", "Please enter some data before saving.")
+        return
+        
+    try:
+        with open('user_inputs.csv', 'a', newline='') as file:
+        # 3. Create a CSV writer object
+            writer = csv.writer(file)
+        # 4. Write the data as a row (a list)
+            writer.writerow([IDskip, data1, data2, data3])
+                
+            messagebox.showinfo("Success", f"Data saved: '{data1}', '{data2}', '{data3}'")
+            # Clear the entry field after saving
+            entry_field1.delete(0, tk.END) 
+            entry_field2.delete(0, tk.END) 
+            entry_field3.delete(0, tk.END)
+    except Exception as e:
+         messagebox.showerror("File Error", f"An error occurred while saving data: {e}")
+
 #------------------ Application Class ------------------ #
 class App(tk.Tk):
     def __init__(self):
@@ -17,7 +44,7 @@ class App(tk.Tk):
         container.grid_columnconfigure(0, weight=1)
 
         self.frames = {}
-        for F in (SignInPage, HomePage, UserPage):
+        for F in (SignInPage, CreateUser_Page, HomePage, UserPage):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             frame.grid(row=0, column=0, sticky="nsew")
@@ -58,32 +85,26 @@ class SignInPage(tk.Frame):
                   command=lambda: controller.show_frame("HomePage")).grid(row=2, column=1)
         tk.Button(self, text="Create Account", width=10, 
                   command=lambda: controller.show_frame("CreateUser_Page")).grid(row=3, column=1)
-        tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=0 column=1, sticky='s')
+        tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=4, column=1, sticky='n')
 
         
 #------------------ Create-User Page ------------------ #
-class CreateUserPage(tk.Frame):
+class CreateUser_Page(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
         
-        tk.Label(self, text="Create User Account", font=("Arial", 16)).grid(row=0, columnspan=2, pady=10)
-        
         tk.Label(self, text="Name").grid(row=0, column=0)
         tk.Label(self, text="Email").grid(row=1, column=0)
         tk.Label(self, text="Password").grid(row=2, column=0)
-
-        e1 = tk.Entry(self)
-        e2 = tk.Entry(self)
-        e3 = tk.Entry(self, show="*")
-        e1.grid(row=0, column=1)
-        e2.grid(row=1, column=1)
-        e3.grid(row=2, column=1)
         
-        tk.Button(self, text="Create Account", width=15,
-                  command=lambda: (controller.show_frame("SignInPage"), 
-                                   # Placeholder for account creation logic,
-                                   messagebox.showinfo("Account Created", "Your account has been created successfully."))).grid()
+        e1 = tk.Entry(self).grid(row=0, column=1)
+        e2 = tk.Entry(self).grid(row=1, column=1) 
+        e3 = tk.Entry(self, show="*").grid(row=2, column=1)
+        
+        submit_info = tk.Button(self, text="Create Account", width=15, command=lambda: (self.CreateAcc_Data_To_csv(e1, e2, e3),
+                                controller.show_frame("SignInPage")))
+        submit_info.grid(row=3, column=1)
 
 #------------------ Home Page ------------------ #
 class HomePage(tk.Frame):
