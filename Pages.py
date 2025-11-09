@@ -89,6 +89,7 @@ class SignInPage(tk.Frame):
 
         
 #------------------ Create-User Page ------------------ #
+#page should be create over sign in page and should not destroy it. 
 class CreateUser_Page(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
