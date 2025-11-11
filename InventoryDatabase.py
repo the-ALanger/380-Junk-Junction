@@ -27,7 +27,8 @@ class InventoryDatabase:
                 itemCondition=row[4],
                 itemCategory=row[5],
                 itemPrice=row[6],
-                itemStatus=row[7]
+                itemStatus=row[7],
+                itemComments=row[8],
             )
             itemList.append(Item)
 

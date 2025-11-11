@@ -1,6 +1,6 @@
 class ItemInfo:
     
-    def __init__(self, itemID, userID, itemName, itemDescription, itemCondition, itemCategory, itemPrice, itemStatus):
+    def __init__(self, itemID, userID, itemName, itemDescription, itemCondition, itemCategory, itemPrice, itemStatus, itemComments):
         self.itemID = itemID
         self.userID = userID
         self.itemName = itemName
@@ -9,6 +9,7 @@ class ItemInfo:
         self.itemCategory = itemCategory
         self.itemPrice = itemPrice
         self.itemStatus = itemStatus
+        self.itemComments = itemComments  # Initialize with provided item comments path
 
     
     
