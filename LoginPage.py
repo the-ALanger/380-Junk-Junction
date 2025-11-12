@@ -29,25 +29,28 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     except Exception as e:
         messagebox.showerror("File Error", f"An error occurred while saving data: {e}")
     
-# --- Tkinter GUI Setup ---
-window = tk.Tk()
-window.title("CSV Data Entry")
-window.geometry("300x250")
+# # --- Tkinter GUI Setup ---
+# window = tk.Tk()
+# window.title("CSV Data Entry")
+# window.geometry("300x250")
 
-label = tk.Label(window, text="Enter a string:")
-label.pack(pady=10)
 
-entry_field1 = tk.Entry(window, width=25)
-entry_field1.pack(pady=5)
-entry_field2 = tk.Entry(window, width=25)
-entry_field2.pack(pady=5)   
-entry_field3 = tk.Entry(window, width=25)
-entry_field3.pack(pady=5)
 
-# The button calls the save_data_to_csv function
-save_button = tk.Button(window, text="Save to CSV", command=lambda: 
-                        Create_Acc_Data_To_csv(entry_field1 , entry_field2, entry_field3))
-save_button.pack(pady=20)
+# tk.Label(window, text="Field 1:").grid(row=0, column=0)
+# tk.Label(window, text="Field 2:").grid(row=1, column=0)
+# tk.Label(window, text="Field 3:").grid(row=2, column=0)
 
-window.mainloop()
+# entry_field1 = tk.Entry(window, width=25)
+# entry_field1.grid(row=0, column=1)
+# entry_field2 = tk.Entry(window, width=25)
+# entry_field2.grid(row=1, column=1)   
+# entry_field3 = tk.Entry(window, width=25)
+# entry_field3.grid(row=2, column=1)
+
+# # The button calls the save_data_to_csv function
+# save_button = tk.Button(window, text="Save to CSV", command=lambda: 
+#                         Create_Acc_Data_To_csv(entry_field1 , entry_field2, entry_field3))
+# save_button.grid(row=20, column=1, pady=10)
+
+# window.mainloop()
 
