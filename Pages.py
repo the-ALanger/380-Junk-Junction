@@ -4,16 +4,18 @@ from tkinter import *
 from tkinter.constants import *
 import csv
 from tkinter import messagebox
+from UserCurrent import UserCurrent
+import random
 
 def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     # 1. Get the string from the Entry widget
-    data1 = entry_field1.get()
-    data2 = entry_field2.get()
-    data3 = entry_field3.get()
-    skip = ""
+    name = entry_field1.get()
+    email = entry_field2.get()
+    password = entry_field3.get()
+    userID = str(random.randint(10000, 99999)) # TODO: Generate a random 5-digit userID that DOES NOT already exist
     # 2. Open the CSV file in append mode ('a')
     # Use newline='' for proper CSV handling in Python 3
-    if not data1 or not data2 or not data3:
+    if not name or not email or not password:
         messagebox.showwarning("Input Error", "Please enter some data before saving.")
         return
     
@@ -22,10 +24,15 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
         with open('user_inputs.csv', 'a', newline='') as file:
         # 3. Create a CSV writer object
             writer = csv.writer(file)
-        # 4. Write the data as a row (a list)
-            writer.writerow([skip, data1, data2, data3])
+        # 4. Write the data as a row (a list)   
+            ######## TODO: Check if User Exists, then write ##########
+            curUser = UserCurrent.check_if_user_exists_by_email(email)
+            if curUser:
+                messagebox.showwarning("Input Error", "User already exists. Please use a different email.")
+                return
+            writer.writerow([userID, name, email, password])
             
-            messagebox.showinfo("Success", f"Data saved: '{data1}', '{data2}', '{data3}'")
+            messagebox.showinfo("Success", f"Data saved: '{name}', '{email}', '{password}'")
         # Optional: Clear the entry field after saving
             entry_field1.delete(0, tk.END) 
             entry_field2.delete(0, tk.END) 
@@ -74,6 +81,19 @@ class App(tk.Tk):
         frame.tkraise()
         
 #------------------ Sign-In Page ------------------ #
+def combine_sign_in(self, entry1, entry2, controller):
+        email = entry1.get()
+        password = entry2.get()
+        ##### user is current user #####
+        user = UserCurrent.check_if_user_exists(email, password)
+        if user:
+            UserCurrent.set_current_user(user)
+            ### example on how to access current user info elsewhere ###
+            messagebox.showerror("Login Successful", f"Welcome back, {UserCurrent.current_user.name}!")
+            controller.show_frame("HomePage")
+        else:
+            messagebox.showerror("Sign In Failed", "Invalid email or password.")
+
 class SignInPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -88,12 +108,12 @@ class SignInPage(tk.Frame):
         e2.grid(row=1, column=1)
 
         tk.Button(self, text="Sign In", width=10,
-                  command=lambda: controller.show_frame("HomePage")).grid(row=2, column=1)
+                  command=lambda: combine_sign_in(self, e1, e2, controller)).grid(row=2, column=1)
         tk.Button(self, text="Create Account", width=13, 
                   command=lambda: controller.show_frame("CreateUserPage")).grid(row=3, column=1)
         tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=4, column=1, sticky='n')
 
-        
+    
 #------------------ Create-User Page ------------------ #
 #page should be create over sign in page and should not destroy it. 
 class CreateUserPage(tk.Frame):

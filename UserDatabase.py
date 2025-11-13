@@ -2,7 +2,6 @@ import csv
 from UserInfo import UserInfo
 #THIS IS A TEST FILE FOR READING CSV DATA
 class UserDatabase:
-        
     
     
     # 2D and only has values 
