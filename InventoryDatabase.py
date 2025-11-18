@@ -45,3 +45,43 @@ class InventoryDatabase:
             if item.userID == str(userID):
                 user_items.append(item)
         return user_items
+
+
+
+
+ # 2D and only has values 
+    # row 0 is the labels
+    with open('CSV/JJLogInventory.csv', newline='') as f:
+        reader = csv.reader(f)
+        data_values_2D = list(reader)
+
+    # And then printing the list of dictionaries
+    # print(" Print dictionary list:")  
+    # print(csv_data)
+
+        
+    # Creating ItemInfo objects for each row in the CSV
+    logItemList = []
+    with open('CSV/JJLogInventory.csv', newline='') as f:
+        reader = csv.reader(f)
+        for row in csv.reader(f):
+            logItem = ItemInfo(
+                itemID=row[0],
+                userID=row[1],
+                itemName=row[2],
+                itemDescription=row[3],
+                itemCondition=row[4],
+                itemCategory=row[5],
+                itemPrice=row[6],
+                itemStatus=row[7],
+                itemComments=row[8],
+            )
+            logItemList.append(logItem)
+
+    def make_sold(item):
+        item.itemStatus = "Sold"
+        for logItem in InventoryDatabase.logItemList:
+            if logItem.itemID == str(item.itemID):
+                return  # Item already logged as sold
+        InventoryDatabase.logItemList.append(item)
+        InventoryDatabase.itemList.remove(item)
