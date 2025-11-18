@@ -1,2 +1,2 @@
 itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,itemStatus,itemComments
-4444,00000,"Test Item","This is a test item for demonstration purposes.","New","Miscellaneous",10.00,"Sold",""
+4444,00000,Test Item,This is a test item for demonstration purposes.,New,Miscellaneous,10.00,Sold,

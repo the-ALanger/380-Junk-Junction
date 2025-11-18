@@ -6,6 +6,7 @@ import csv
 from tkinter import messagebox
 from UserCurrent import UserCurrent
 import random
+# need to remove random import later after userID generation is fixed
 
 def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     # 1. Get the string from the Entry widget

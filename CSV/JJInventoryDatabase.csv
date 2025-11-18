@@ -1,4 +1,5 @@
-itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,itemStatus, itemComments
-1001,69420,"Used Bicycle","A well-maintained used bicycle.","Good","Sports",150.00,"Available"
-1002,77777,"Laptop","A slightly used laptop with 8GB RAM.","Very Good","Electronics",450.00,"Available", "ItemComments/0001.csv"
-1003,77777,"Desk Chair","Ergonomic desk chair in excellent condition.","Like New","Furniture",85.00,"Available"
+itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,itemStatus,itemComments
+1003,77777,Desk Chair,Ergonomic desk chair in excellent condition.,Like New,Furniture,85.00,Available,ItemComments/0001.csv
+1002,77777,Laptop,A slightly used laptop with 8GB RAM.,Very Good,Electronics,450.00,Available,ItemComments/0001.csv
+1001,69420,Used Bicycle,A well-maintained used bicycle.,Good,Sports,150.00,Available,ItemComments/0001.csv
+

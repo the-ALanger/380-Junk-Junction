@@ -1,5 +1,6 @@
 import csv
 from UserInfo import UserInfo
+from UpdateCSVs import UpdateCSVs
 #THIS IS A TEST FILE FOR READING CSV DATA
 class UserDatabase:
     
@@ -30,3 +31,7 @@ class UserDatabase:
             if user.userID == str(userID):
                 return user
         return None
+    
+    def update_csv():
+        filename = "CSV/JJUserDatabase.csv"
+        UpdateCSVs.update_user_csv(filename, UserDatabase.userList)

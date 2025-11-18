@@ -4,6 +4,9 @@ from UserDatabase import UserDatabase
 def main():
     InvData = InventoryDatabase()
     UData = UserDatabase()
+    
+    InventoryDatabase.update_csv()
+    UserDatabase.update_csv()
  #Prints the column name and then the associated values in that row: 'itemID, 1003' as an Array
 ########################################## INVENTORY DATABASE TESTING ###########################################
 
@@ -58,3 +61,4 @@ def main():
 if __name__ == "__main__":
     main()
 
+ 
