@@ -6,6 +6,7 @@ import csv
 from tkinter import messagebox
 from UserCurrent import UserCurrent
 import random
+
 # need to remove random import later after userID generation is fixed
 
 def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
@@ -22,7 +23,7 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     
     try:
         ## Change 'user_inputs.csv' to 'JJUserDatabase.csv' when finished testing 
-        with open('user_inputs.csv', 'a', newline='') as file:
+        with open('JJUSerDatabase.csv', 'a', newline='') as file:
         # 3. Create a CSV writer object
             writer = csv.writer(file)
         # 4. Write the data as a row (a list)   
@@ -242,3 +243,7 @@ class UserPage(tk.Frame):
 if __name__ == "__main__":
     app = App()
     app.mainloop()
+
+# TODO: Update CSV files after program ends using UpdateCSVs
+update_user_csv()
+update_item_csv()
