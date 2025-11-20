@@ -5,6 +5,7 @@ from tkinter.constants import *
 import csv
 from tkinter import messagebox
 from UserCurrent import UserCurrent
+from UserDatabase import UserDatabase
 import random
 
 #---- TODO Refactor This File ----#
@@ -25,23 +26,16 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
         return
     
     try:
-        ## Change 'user_inputs.csv' to 'JJUserDatabase.csv' when finished testing 
-        with open('user_inputs.csv', 'a', newline='') as file:
-        # 3. Create a CSV writer object
-            writer = csv.writer(file)
-        # 4. Write the data as a row (a list)   
-            ######## TODO: Check if User Exists, then write ##########
-            curUser = UserCurrent.check_if_user_exists_by_email(email)
-            if curUser:
-                messagebox.showwarning("Input Error", "User already exists. Please use a different email.")
-                return
-            writer.writerow([userID, name, email, password])
-            
-            messagebox.showinfo("Success", f"Data saved: '{name}', '{email}'")
+        curUser = UserCurrent.check_if_user_exists_by_email(email)
+        if curUser:
+            messagebox.showwarning("Input Error", "User already exists. Please use a different email.")
+            return
+        UserDatabase.create_account(name, email, password)
+        messagebox.showinfo("Success", f"Data saved: '{name}', '{email}', '{password}'")
         # Optional: Clear the entry field after saving
-            entry_field1.delete(0, tk.END) 
-            entry_field2.delete(0, tk.END) 
-            entry_field3.delete(0, tk.END)
+        entry_field1.delete(0, tk.END) 
+        entry_field2.delete(0, tk.END) 
+        entry_field3.delete(0, tk.END)
     except Exception as e:
         messagebox.showerror("File Error", f"An error occurred while saving data: {e}")
 
@@ -306,3 +300,7 @@ class UserPage(tk.Frame):
 if __name__ == "__main__":
     app = App()
     app.mainloop()
+
+# TODO: Update CSV files after program ends using UpdateCSVs
+update_user_csv()
+update_item_csv()
