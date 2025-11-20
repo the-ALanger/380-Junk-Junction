@@ -8,7 +8,10 @@ from UserCurrent import UserCurrent
 import random
 
 #---- TODO Refactor This File ----#
+'''
+Is used to create account by passing information frrom user input fields to csv file.
 
+'''
 def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     # 1. Get the string from the Entry widget
     name = entry_field1.get()
@@ -41,6 +44,11 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
             entry_field3.delete(0, tk.END)
     except Exception as e:
         messagebox.showerror("File Error", f"An error occurred while saving data: {e}")
+
+'''
+Combines the actions of passing data to csv
+and switching to sign-in page.
+'''
 
 def combined_functions(entry1, entry2, entry3, controller):
     Create_Acc_Data_To_csv(entry1, entry2, entry3)
