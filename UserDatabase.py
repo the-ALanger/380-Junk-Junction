@@ -13,18 +13,20 @@ class UserDatabase:
         
 
         # Creating ItemInfo objects for each row in the CSV
-    userList = []
+    userList = [] 
+    curID = 0
     with open('CSV/JJUserDatabase.csv', newline='') as f:
         reader = csv.reader(f)
         for row in csv.reader(f):
-            Item = UserInfo(
+            user = UserInfo(
                 userID=row[0],
                 name=row[1],
                 email=row[2], 
                 password=row[3]
             )
-            userList.append(Item)
-
+            userList.append(user)
+        curID=userList[-1].userID
+        
     # change the method signature to include self
     def get_user_with_id(self, userID):
         for user in UserDatabase.userList:
@@ -35,3 +37,15 @@ class UserDatabase:
     def update_csv():
         filename = "CSV/JJUserDatabase.csv"
         UpdateCSVs.update_user_csv(filename, UserDatabase.userList)
+        
+    def create_account(name, email, password):
+        user = UserInfo(
+            userID=str(int(UserDatabase.curID)+1),
+            name=name,
+            email=email,
+            password=password
+        )
+        UserDatabase.userList.append(user)
+        UserDatabase.curID = str(int(UserDatabase.curID)+1)
+        UserDatabase.update_csv()
+        return user
