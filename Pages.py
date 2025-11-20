@@ -8,7 +8,7 @@ from UserCurrent import UserCurrent
 from UserDatabase import UserDatabase
 import random
 
-# need to remove random import later after userID generation is fixed
+#---- TODO Refactor This File ----#
 
 def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     # 1. Get the string from the Entry widget
@@ -41,6 +41,11 @@ def combined_functions(entry1, entry2, entry3, controller):
     controller.show_frame("SignInPage")
     
 #------------------ Application Class ------------------ #
+'''
+App is the main application class that manages different pages.
+It initializes the main window, sets up the frame container,
+and provides a method to switch between different pages.
+'''
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -85,7 +90,7 @@ def combine_sign_in(self, entry1, entry2, controller):
         if user:
             UserCurrent.set_current_user(user)
             ### example on how to access current user info elsewhere ###
-            messagebox.showerror("Login Successful", f"Welcome back, {UserCurrent.current_user.name}!")
+            messagebox.showinfo("Login Successful", f"Welcome back, {UserCurrent.current_user.name}!")
             controller.show_frame("HomePage")
         else:
             messagebox.showerror("Sign In Failed", "Invalid email or password.")
@@ -148,6 +153,28 @@ class CreateUserPage(tk.Frame):
         )
         return_to_sign_in.grid(row=4, column=1, pady=5)
 
+#------------------ Pop up window ------------------- #
+class ImagePopup(tk.Toplevel):
+    def __init__(self, parent, image_path, caption, description):
+        super().__init__(parent)
+        self.title("Listing Description")
+        
+        # Display Larger Image
+        try: 
+            photo = tk.PhotoImage(file=image_path)
+        except tk.TclError:
+            photo = tk.PhotoImage(width=400, height=300)
+        
+        img_label = ttk.Label(self, image=photo)
+        img_label.image = photo  # keep reference
+        img_label.grid(row=0, column=0, sticky="n", pady=(0,5))
+
+        text_label = ttk.Label(self, text=caption, font=("Times New Roman",10), wraplength=200)
+        text_label.grid(row=1, column=0, sticky="s")
+        
+        desc_label = tk.Label(self, text=description, wraplength=400, justify="left")
+        desc_label.pack(pady=10, padx=10)
+
 #------------------ Home Page ------------------ #
 class HomePage(tk.Frame):
     
@@ -175,7 +202,28 @@ class HomePage(tk.Frame):
                   command=lambda: controller.show_frame("SignInPage")).pack(side="bottom", pady=5)
         tk.Button(self, text='User Page', width=15,
                   command=lambda: controller.show_frame("UserPage")).pack(side="bottom", pady=5)
-       
+        tk.Button(self, text='Pop-up', width=15,
+                  command=lambda: ImagePopup(self, "images/Charzard.png",
+                                     "Caption about charizard",
+                                     "This is an example popup description.")).pack(side="bottom", pady=5)
+        
+        #container Frame
+        scroll_container = tk.Frame(self, bg="#2a6cc8")
+        scroll_container.pack(fill="both", expand=True)
+
+        #canvas with Scrollbar
+        canvas = tk.Canvas(scroll_container, bg="#205fb7", highlightthickness=0)
+        canvas.pack(side="left", fill="both", expand=True)
+
+        scrollbar = tk.Scrollbar(scroll_container, orient="vertical", command=canvas.yview)
+        scrollbar.pack(side="right", fill="y")
+
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        #inner frame holds pics
+        center_area = tk.Frame(canvas, bg="#fafafb")
+        canvas_window = canvas.create_window((0, 0), window=center_area, anchor="nw")
+        
         for i in range(2):
             center_area.columnconfigure(i, weight=1, uniform="col")
             center_area.rowconfigure(i, weight=1, uniform="row")
@@ -194,7 +242,14 @@ class HomePage(tk.Frame):
 
         for i, (path, text) in enumerate(images):
             self.User_post(center_area, path, text, row=i//2, col=i%2)
-            center_area.pack(fill="both", expand=True)
+            #center_area.pack(fill="both", expand=True)
+        
+        def update_scroll_region(event=None):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+            canvas.itemconfig(canvas_window, width=canvas.winfo_width())
+
+        center_area.bind("<Configure>", update_scroll_region)
+        canvas.bind("<Configure>", update_scroll_region)
         
     def User_post(self, parent, image_path, caption, row, col):   
         frame = ttk.Frame(parent, padding=10)
@@ -239,5 +294,5 @@ if __name__ == "__main__":
     app.mainloop()
 
 # TODO: Update CSV files after program ends using UpdateCSVs
-InventoryDatabase.update_csv()
-
+update_user_csv()
+update_item_csv()
