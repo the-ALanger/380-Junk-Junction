@@ -1,11 +1,20 @@
 import csv
+    
+
 class UpdateCSVs:
-    
-    
-    '''A class to handle updating CSV files.
-    Takes a file and an array and to write a new csv into that name.
     '''
+    UpdateCSVs.py
+    11/18/2025
+    Anthony Langer, Ian Flack
+
+    This class is responsible for updating CSV files for items and users.
+    Each method takes a filename and an array of data objects to write to the CSV file.
+    The CSV files are created or overwritten with the provided data.
+    '''
+
     def update_item_csv(filename, data):
+
+        '''Updates the item CSV file with the provided array data.'''
         rows = []
         for item in data:
             rows.append([
@@ -29,6 +38,8 @@ class UpdateCSVs:
         print(f"CSV file '{filename}' created successfully.")
         
     def update_user_csv(filename, data):
+        
+        '''Updates the user CSV file with the provided array data.'''
         rows = []
         for user in data:
             rows.append([
