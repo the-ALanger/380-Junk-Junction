@@ -243,7 +243,7 @@ class HomePage(tk.Frame):
         scroll_container = tk.Frame(self, bg="#2a6cc8")
         scroll_container.pack(fill="both", expand=True)
 
-        #canvas with Scrollbar
+        #canvas with scrollbar
         canvas = tk.Canvas(scroll_container, bg="#205fb7", highlightthickness=0)
         canvas.pack(side="left", fill="both", expand=True)
 
