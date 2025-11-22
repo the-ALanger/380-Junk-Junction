@@ -44,6 +44,12 @@ class UserDatabase:
         UpdateCSVs.update_user_csv(filename, UserDatabase.userList)
         
     def create_account(name, email, password):
+        ''' 
+        Create a new user account and save it to the database.
+        Takes name, email, and password as parameters, and creates a new UserInfo object.
+        The new user is appended to the userList and the CSV file is updated.
+        Returns the newly created UserInfo object.
+        '''
         user = UserInfo(
             userID=str(int(UserDatabase.curID)+1),
             name=name,

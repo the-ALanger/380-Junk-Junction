@@ -47,7 +47,10 @@ Uses&nbsp;UserInfo.py&nbsp;to&nbsp;define&nbsp;the&nbsp;user&nbsp;data&nbsp;stru
 Uses&nbsp;UpdateCSVs.py&nbsp;to&nbsp;write&nbsp;changes&nbsp;back&nbsp;to&nbsp;the&nbsp;CSV&nbsp;file.<br>&nbsp;</span></td></tr>
 <tr><td>&nbsp;</td>
 <td class="singlecolumn">Methods defined here:<br>
-<dl><dt><a name="UserDatabase-create_account"><strong>create_account</strong></a>(name, email, password)</dt></dl>
+<dl><dt><a name="UserDatabase-create_account"><strong>create_account</strong></a>(name, email, password)</dt><dd><span class="code">Create&nbsp;a&nbsp;new&nbsp;user&nbsp;account&nbsp;and&nbsp;save&nbsp;it&nbsp;to&nbsp;the&nbsp;database.<br>
+Takes&nbsp;name,&nbsp;email,&nbsp;and&nbsp;password&nbsp;as&nbsp;parameters,&nbsp;and&nbsp;creates&nbsp;a&nbsp;new&nbsp;UserInfo&nbsp;<a href="builtins.html#object">object</a>.<br>
+The&nbsp;new&nbsp;user&nbsp;is&nbsp;appended&nbsp;to&nbsp;the&nbsp;userList&nbsp;and&nbsp;the&nbsp;CSV&nbsp;file&nbsp;is&nbsp;updated.<br>
+Returns&nbsp;the&nbsp;newly&nbsp;created&nbsp;UserInfo&nbsp;<a href="builtins.html#object">object</a>.</span></dd></dl>
 
 <dl><dt><a name="UserDatabase-get_user_with_id"><strong>get_user_with_id</strong></a>(self, userID)</dt><dd><span class="code">Gets&nbsp;a&nbsp;user&nbsp;by&nbsp;their&nbsp;userID.<br>
 Returns&nbsp;the&nbsp;UserInfo&nbsp;<a href="builtins.html#object">object</a>&nbsp;if&nbsp;found,&nbsp;else&nbsp;returns&nbsp;None.</span></dd></dl>
