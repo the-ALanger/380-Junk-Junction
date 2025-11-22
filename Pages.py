@@ -209,7 +209,11 @@ class HomePage(tk.Frame):
     
     #tk.Tk().rowconfigure(0, weight = 1)
     #tk.Tk().columnconfigure(0, weight = 1)
-    
+
+    '''
+    This function builds the layout and background of the app including the title, side banners, buttons, 
+    the images, the scroll wheel and the entire GUI of the homepage.
+    ''' 
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
@@ -279,7 +283,11 @@ class HomePage(tk.Frame):
 
         center_area.bind("<Configure>", update_scroll_region)
         canvas.bind("<Configure>", update_scroll_region)
-        
+
+    '''
+    This function creates the grid in which the user posts are ordered including the picture 
+    and the title of the thing being sold.
+    '''   
     def User_post(self, parent, image_path, caption, row, col):   
         frame = ttk.Frame(parent, padding=10)
         frame.grid(row=row, column=col, sticky="nsew", padx=5, pady=5)
