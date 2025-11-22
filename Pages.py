@@ -2,11 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from tkinter.constants import *
-import csv
 from tkinter import messagebox
 from UserCurrent import UserCurrent
 from UserDatabase import UserDatabase
-import random
 
 #---- TODO Refactor This File ----#
 '''
@@ -18,7 +16,6 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     name = entry_field1.get()
     email = entry_field2.get()
     password = entry_field3.get()
-    userID = str(random.randint(10000, 99999)) # TODO: Generate a random 5-digit userID that DOES NOT already exist
     # 2. Open the CSV file in append mode ('a')
     # Use newline='' for proper CSV handling in Python 3
     if not name or not email or not password:
@@ -39,12 +36,12 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     except Exception as e:
         messagebox.showerror("File Error", f"An error occurred while saving data: {e}")
 
-'''
-Combines the actions of passing data to csv
-and switching to sign-in page.
-'''
 
 def combined_functions(entry1, entry2, entry3, controller):
+    '''
+    Combines the actions of passing data to csv
+    and switching to sign-in page.
+    '''
     Create_Acc_Data_To_csv(entry1, entry2, entry3)
     controller.show_frame("SignInPage")
     
