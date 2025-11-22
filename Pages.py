@@ -90,6 +90,9 @@ class App(tk.Tk):
         frame.tkraise()
         
 #------------------ Sign-In Page ------------------ #
+'''
+Combines sign-in functionality with user validation.
+'''
 def combine_sign_in(self, entry1, entry2, controller):
         email = entry1.get()
         password = entry2.get()
@@ -103,6 +106,11 @@ def combine_sign_in(self, entry1, entry2, controller):
         else:
             messagebox.showerror("Sign In Failed", "Invalid email or password.")
 
+'''
+Class for the sign-in page of the application.
+Contains fields for email and password, and buttons for signing in,
+creating an account, and exiting the app.
+'''
 class SignInPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -124,7 +132,10 @@ class SignInPage(tk.Frame):
 
     
 #------------------ Create-User Page ------------------ #
-#page should be create over sign in page and should not destroy it. 
+'''
+Class for the create-user page of the application.
+Contains fields for name, email, and password, and buttons for creating an account
+'''
 class CreateUserPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -173,7 +184,7 @@ class ImagePopup(tk.Toplevel):
         super().__init__(parent)
         self.title("Listing Description")
         
-        # Display Larger Image
+        # display larger image
         try: 
             photo = tk.PhotoImage(file=image_path)
         except tk.TclError:
@@ -290,6 +301,9 @@ class HomePage(tk.Frame):
         text_label.grid(row=1, column=0, sticky="s")
 
 #------------------ User Page ------------------ #
+'''
+User page displaying user information and their items
+'''
 class UserPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
