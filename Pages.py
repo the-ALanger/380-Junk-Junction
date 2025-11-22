@@ -172,16 +172,19 @@ class CreateUserPage(tk.Frame):
         )
         return_to_sign_in.grid(row=4, column=1, pady=5)
 
-#------------------ Pop up window ------------------- #
+#------------------ Pop up window November 20------------------- #
 '''
-
+Leonel Villanueva
+Popup window class is used to display a larger image of the item that is being viewed as well 
+as its price, caption, and description. When this class is called in the HomePage class it creates 
+a sperate popup window displaying what picture and info passed to it.
 '''
 class ImagePopup(tk.Toplevel):
     def __init__(self, parent, image_path, caption, description):
         super().__init__(parent)
         self.title("Listing Description")
         
-        # Display Larger Image
+        # display larger image
         try: 
             photo = tk.PhotoImage(file=image_path)
         except tk.TclError:
@@ -197,11 +200,13 @@ class ImagePopup(tk.Toplevel):
         desc_label = tk.Label(self, text=description, wraplength=400, justify="left")
         desc_label.pack(pady=10, padx=10)
 
-#------------------ Home Page ------------------ #
+#------------------ Home Page November 18 ------------------ #
 '''
-Home page displaying user posts with scrollable area.
-Also includes navigation buttons to other pages.
-
+Leonel Villanueva
+Homepage class is responsible for displaying the main interface of the application, 
+it includes the title, side banners, navigation buttons, and a scrollable area
+that displays user posts with images and captions. One data structure that I used in this class
+was the use of a list of tuplues that share an image and its caption to be displayed. 
 '''
 class HomePage(tk.Frame):
     
