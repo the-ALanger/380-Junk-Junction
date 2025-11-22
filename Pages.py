@@ -9,11 +9,15 @@ from UserDatabase import UserDatabase
 import random
 
 #---- TODO Refactor This File ----#
-'''
-Is used to create account by passing information frrom user input fields to csv file.
-
-'''
 def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
+    '''
+    Create_Acc_Data_To_csv
+    11/11/25
+    Sarkis Nazaryan
+    
+    collects three parameters from the Create Account page entry fields
+    and appends them as a new row to the users.csv file. 
+    '''
     # 1. Get the string from the Entry widget
     name = entry_field1.get()
     email = entry_field2.get()
@@ -39,22 +43,29 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     except Exception as e:
         messagebox.showerror("File Error", f"An error occurred while saving data: {e}")
 
-'''
-Combines the actions of passing data to csv
-and switching to sign-in page.
-'''
-
 def combined_functions(entry1, entry2, entry3, controller):
+    '''
+    combined_functions
+    11/11/25
+    Sarkis Nazaryan
+    
+    Combines the actions of passing data to csv
+    and switching to sign-in page.
+    '''
     Create_Acc_Data_To_csv(entry1, entry2, entry3)
     controller.show_frame("SignInPage")
     
 #------------------ Application Class ------------------ #
-'''
-App is the main application class that manages different pages.
-It initializes the main window, sets up the frame container,
-and provides a method to switch between different pages.
-'''
 class App(tk.Tk):
+    '''
+    App
+    10/20/25
+    Sarkis Nazaryan
+    
+    App is the main application class that manages different pages.
+    It initializes the main window, sets up the frame container,
+    and provides a method to switch between different pages.
+    '''
     def __init__(self):
         super().__init__()
         self.title("Junk Junction")
@@ -90,10 +101,15 @@ class App(tk.Tk):
         frame.tkraise()
         
 #------------------ Sign-In Page ------------------ #
-'''
-Combines sign-in functionality with user validation.
-'''
 def combine_sign_in(self, entry1, entry2, controller):
+        '''
+        combine_sign_in
+        11/19/25
+        Sarkis Nazaryan
+
+        combines the sign-in process by checking user credentials
+        and setting the current user if valid.
+        '''
         email = entry1.get()
         password = entry2.get()
         ##### user is current user #####
@@ -106,12 +122,18 @@ def combine_sign_in(self, entry1, entry2, controller):
         else:
             messagebox.showerror("Sign In Failed", "Invalid email or password.")
 
-'''
-Class for the sign-in page of the application.
-Contains fields for email and password, and buttons for signing in,
-creating an account, and exiting the app.
-'''
+
 class SignInPage(tk.Frame):
+
+    '''
+    SignInPage
+    11/19/25
+    Sarkis Nazaryan
+
+    Class for the sign-in page of the application.
+    Contains fields for email and password, and buttons for signing in,
+    creating an account, and exiting the app.
+    '''
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
@@ -133,6 +155,10 @@ class SignInPage(tk.Frame):
     
 #------------------ Create-User Page ------------------ #
 '''
+CreateUserPage
+11/19/25
+Sarkis Nazaryan
+
 Class for the create-user page of the application.
 Contains fields for name, email, and password, and buttons for creating an account
 '''
@@ -174,10 +200,13 @@ class CreateUserPage(tk.Frame):
 
 #------------------ Pop up window November 20------------------- #
 '''
+Imagepopup
+11/18/25
+
 Leonel Villanueva
 Popup window class is used to display a larger image of the item that is being viewed as well 
 as its price, caption, and description. When this class is called in the HomePage class it creates 
-a sperate popup window displaying what picture and info passed to it.
+a seperate popup window displaying what picture and info passed to it.
 '''
 class ImagePopup(tk.Toplevel):
     def __init__(self, parent, image_path, caption, description):
@@ -202,7 +231,10 @@ class ImagePopup(tk.Toplevel):
 
 #------------------ Home Page November 18 ------------------ #
 '''
-Leonel Villanueva
+HomePage
+11/18/25
+Sarkis, Leonel Villanueva
+
 Homepage class is responsible for displaying the main interface of the application, 
 it includes the title, side banners, navigation buttons, and a scrollable area
 that displays user posts with images and captions. One data structure that I used in this class
