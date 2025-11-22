@@ -1,20 +1,24 @@
 import csv
 from UserInfo import UserInfo
 from UpdateCSVs import UpdateCSVs
-#THIS IS A TEST FILE FOR READING CSV DATA
-class UserDatabase:
-    
-    
-    # 2D and only has values 
-    # row 0 is the labels
-    with open('CSV/JJUserDatabase.csv', newline='') as f:
-        reader = csv.reader(f)
-        data_values_2D = list(reader)
-        
 
-        # Creating ItemInfo objects for each row in the CSV
+class UserDatabase:
+    """
+    UserDatabase.py
+    11/06/2025
+    Anthony Langer, Ian Flack
+
+    This class loads user data from a CSV file into UserInfo objects and
+    provides methods to access and update this data.
+    Uses UserInfo.py to define the user data structure.
+    Uses UpdateCSVs.py to write changes back to the CSV file.
+    """
+
     userList = []
     with open('CSV/JJUserDatabase.csv', newline='') as f:
+        
+        '''On class load, read the CSV and populate userList with UserInfo objects.
+        '''
         reader = csv.reader(f)
         for row in csv.reader(f):
             Item = UserInfo(
@@ -25,13 +29,16 @@ class UserDatabase:
             )
             userList.append(Item)
 
-    # change the method signature to include self
     def get_user_with_id(self, userID):
+        '''Gets a user by their userID.
+        Returns the UserInfo object if found, else returns None.
+        '''
         for user in UserDatabase.userList:
             if user.userID == str(userID):
                 return user
         return None
     
     def update_csv():
+        '''Updates the user CSV file with the current userList data.'''
         filename = "CSV/JJUserDatabase.csv"
         UpdateCSVs.update_user_csv(filename, UserDatabase.userList)
