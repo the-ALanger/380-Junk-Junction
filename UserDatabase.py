@@ -21,7 +21,7 @@ class UserDatabase:
         '''
         reader = csv.reader(f)
         for row in csv.reader(f):
-            Item = UserInfo(
+            user = UserInfo(
                 userID=row[0],
                 name=row[1],
                 email=row[2], 
@@ -42,3 +42,15 @@ class UserDatabase:
         '''Updates the user CSV file with the current userList data.'''
         filename = "CSV/JJUserDatabase.csv"
         UpdateCSVs.update_user_csv(filename, UserDatabase.userList)
+        
+    def create_account(name, email, password):
+        user = UserInfo(
+            userID=str(int(UserDatabase.curID)+1),
+            name=name,
+            email=email,
+            password=password
+        )
+        UserDatabase.userList.append(user)
+        UserDatabase.curID = str(int(UserDatabase.curID)+1)
+        UserDatabase.update_csv()
+        return user

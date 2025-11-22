@@ -5,9 +5,14 @@ from tkinter.constants import *
 import csv
 from tkinter import messagebox
 from UserCurrent import UserCurrent
+from UserDatabase import UserDatabase
 import random
-# need to remove random import later after userID generation is fixed
 
+#---- TODO Refactor This File ----#
+'''
+Is used to create account by passing information frrom user input fields to csv file.
+
+'''
 def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     # 1. Get the string from the Entry widget
     name = entry_field1.get()
@@ -21,31 +26,34 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
         return
     
     try:
-        ## Change 'user_inputs.csv' to 'JJUserDatabase.csv' when finished testing 
-        with open('user_inputs.csv', 'a', newline='') as file:
-        # 3. Create a CSV writer object
-            writer = csv.writer(file)
-        # 4. Write the data as a row (a list)   
-            ######## TODO: Check if User Exists, then write ##########
-            curUser = UserCurrent.check_if_user_exists_by_email(email)
-            if curUser:
-                messagebox.showwarning("Input Error", "User already exists. Please use a different email.")
-                return
-            writer.writerow([userID, name, email, password])
-            
-            messagebox.showinfo("Success", f"Data saved: '{name}', '{email}', '{password}'")
+        curUser = UserCurrent.check_if_user_exists_by_email(email)
+        if curUser:
+            messagebox.showwarning("Input Error", "User already exists. Please use a different email.")
+            return
+        UserDatabase.create_account(name, email, password)
+        messagebox.showinfo("Success", f"Data saved: '{name}', '{email}', '{password}'")
         # Optional: Clear the entry field after saving
-            entry_field1.delete(0, tk.END) 
-            entry_field2.delete(0, tk.END) 
-            entry_field3.delete(0, tk.END)
+        entry_field1.delete(0, tk.END) 
+        entry_field2.delete(0, tk.END) 
+        entry_field3.delete(0, tk.END)
     except Exception as e:
         messagebox.showerror("File Error", f"An error occurred while saving data: {e}")
+
+'''
+Combines the actions of passing data to csv
+and switching to sign-in page.
+'''
 
 def combined_functions(entry1, entry2, entry3, controller):
     Create_Acc_Data_To_csv(entry1, entry2, entry3)
     controller.show_frame("SignInPage")
     
 #------------------ Application Class ------------------ #
+'''
+App is the main application class that manages different pages.
+It initializes the main window, sets up the frame container,
+and provides a method to switch between different pages.
+'''
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -82,6 +90,9 @@ class App(tk.Tk):
         frame.tkraise()
         
 #------------------ Sign-In Page ------------------ #
+'''
+Combines sign-in functionality with user validation.
+'''
 def combine_sign_in(self, entry1, entry2, controller):
         email = entry1.get()
         password = entry2.get()
@@ -90,11 +101,16 @@ def combine_sign_in(self, entry1, entry2, controller):
         if user:
             UserCurrent.set_current_user(user)
             ### example on how to access current user info elsewhere ###
-            messagebox.showerror("Login Successful", f"Welcome back, {UserCurrent.current_user.name}!")
+            messagebox.showinfo("Login Successful", f"Welcome back, {UserCurrent.current_user.name}!")
             controller.show_frame("HomePage")
         else:
             messagebox.showerror("Sign In Failed", "Invalid email or password.")
 
+'''
+Class for the sign-in page of the application.
+Contains fields for email and password, and buttons for signing in,
+creating an account, and exiting the app.
+'''
 class SignInPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -116,7 +132,10 @@ class SignInPage(tk.Frame):
 
     
 #------------------ Create-User Page ------------------ #
-#page should be create over sign in page and should not destroy it. 
+'''
+Class for the create-user page of the application.
+Contains fields for name, email, and password, and buttons for creating an account
+'''
 class CreateUserPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -153,7 +172,42 @@ class CreateUserPage(tk.Frame):
         )
         return_to_sign_in.grid(row=4, column=1, pady=5)
 
-#------------------ Home Page ------------------ #
+#------------------ Pop up window November 20------------------- #
+'''
+Leonel Villanueva
+Popup window class is used to display a larger image of the item that is being viewed as well 
+as its price, caption, and description. When this class is called in the HomePage class it creates 
+a sperate popup window displaying what picture and info passed to it.
+'''
+class ImagePopup(tk.Toplevel):
+    def __init__(self, parent, image_path, caption, description):
+        super().__init__(parent)
+        self.title("Listing Description")
+        
+        # display larger image
+        try: 
+            photo = tk.PhotoImage(file=image_path)
+        except tk.TclError:
+            photo = tk.PhotoImage(width=400, height=300)
+        
+        img_label = ttk.Label(self, image=photo)
+        img_label.image = photo  # keep reference
+        img_label.grid(row=0, column=0, sticky="n", pady=(0,5))
+
+        text_label = ttk.Label(self, text=caption, font=("Times New Roman",10), wraplength=200)
+        text_label.grid(row=1, column=0, sticky="s")
+        
+        desc_label = tk.Label(self, text=description, wraplength=400, justify="left")
+        desc_label.pack(pady=10, padx=10)
+
+#------------------ Home Page November 18 ------------------ #
+'''
+Leonel Villanueva
+Homepage class is responsible for displaying the main interface of the application, 
+it includes the title, side banners, navigation buttons, and a scrollable area
+that displays user posts with images and captions. One data structure that I used in this class
+was the use of a list of tuplues that share an image and its caption to be displayed. 
+'''
 class HomePage(tk.Frame):
     
     #tk.Tk().rowconfigure(0, weight = 1)
@@ -180,7 +234,28 @@ class HomePage(tk.Frame):
                   command=lambda: controller.show_frame("SignInPage")).pack(side="bottom", pady=5)
         tk.Button(self, text='User Page', width=15,
                   command=lambda: controller.show_frame("UserPage")).pack(side="bottom", pady=5)
-       
+        tk.Button(self, text='Pop-up', width=15,
+                  command=lambda: ImagePopup(self, "images/Charzard.png",
+                                     "Caption about charizard",
+                                     "This is an example popup description.")).pack(side="bottom", pady=5)
+        
+        #container Frame
+        scroll_container = tk.Frame(self, bg="#2a6cc8")
+        scroll_container.pack(fill="both", expand=True)
+
+        #canvas with Scrollbar
+        canvas = tk.Canvas(scroll_container, bg="#205fb7", highlightthickness=0)
+        canvas.pack(side="left", fill="both", expand=True)
+
+        scrollbar = tk.Scrollbar(scroll_container, orient="vertical", command=canvas.yview)
+        scrollbar.pack(side="right", fill="y")
+
+        canvas.configure(yscrollcommand=scrollbar.set)
+
+        #inner frame holds pics
+        center_area = tk.Frame(canvas, bg="#fafafb")
+        canvas_window = canvas.create_window((0, 0), window=center_area, anchor="nw")
+        
         for i in range(2):
             center_area.columnconfigure(i, weight=1, uniform="col")
             center_area.rowconfigure(i, weight=1, uniform="row")
@@ -199,7 +274,14 @@ class HomePage(tk.Frame):
 
         for i, (path, text) in enumerate(images):
             self.User_post(center_area, path, text, row=i//2, col=i%2)
-            center_area.pack(fill="both", expand=True)
+            #center_area.pack(fill="both", expand=True)
+        
+        def update_scroll_region(event=None):
+            canvas.configure(scrollregion=canvas.bbox("all"))
+            canvas.itemconfig(canvas_window, width=canvas.winfo_width())
+
+        center_area.bind("<Configure>", update_scroll_region)
+        canvas.bind("<Configure>", update_scroll_region)
         
     def User_post(self, parent, image_path, caption, row, col):   
         frame = ttk.Frame(parent, padding=10)
@@ -219,6 +301,9 @@ class HomePage(tk.Frame):
         text_label.grid(row=1, column=0, sticky="s")
 
 #------------------ User Page ------------------ #
+'''
+User page displaying user information and their items
+'''
 class UserPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -242,3 +327,7 @@ class UserPage(tk.Frame):
 if __name__ == "__main__":
     app = App()
     app.mainloop()
+
+# TODO: Update CSV files after program ends using UpdateCSVs
+update_user_csv()
+update_item_csv()

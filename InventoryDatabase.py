@@ -18,7 +18,7 @@ class InventoryDatabase:
 
         
     # Creating ItemInfo objects for each row in the CSV
-    curItemID=0
+    curID=0
     itemList = []
     with open('CSV/JJInventoryDatabase.csv', newline='') as f:
         reader = csv.reader(f)
@@ -35,7 +35,7 @@ class InventoryDatabase:
                 itemComments=row[8],
             )
             itemList.append(Item)
-        curItemID=itemList[-1].itemID
+        curID=itemList[-1].itemID
 
     # change the method signature to include self
     def get_item_with_id(self, itemID):
