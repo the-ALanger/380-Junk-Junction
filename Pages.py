@@ -324,7 +324,3 @@ class UserPage(tk.Frame):
 if __name__ == "__main__":
     app = App()
     app.mainloop()
-
-# TODO: Update CSV files after program ends using UpdateCSVs
-update_user_csv()
-update_item_csv()
