@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Python: module InventoryDatabase</title>
+</head>
+
+<body>
+
+    <table class="heading">
+        <tr class="heading-text decor">
+            <td class="title">&nbsp;<br><strong class="title">InventoryDatabase</strong></td>
+            <td class="extra"><a href=".">index</a><br><a
+                    href="file:c%3A%5Cusers%5Cuser%5Cdocuments%5Cgithub%5C380-junk-junction%5Cinventorydatabase.py">c:\users\user\documents\github\380-junk-junction\inventorydatabase.py</a>
+            </td>
+        </tr>
+    </table>
+    <p></p>
+    <p>
+    <table class="section">
+        <tr class="decor pkg-content-decor heading-text">
+            <td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td>
+        </tr>
+
+        <tr>
+            <td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+            <td>&nbsp;</td>
+            <td class="singlecolumn">
+                <table>
+                    <tr>
+                        <td class="multicolumn"><a href="csv.html">csv</a><br>
+                        </td>
+                        <td class="multicolumn"></td>
+                        <td class="multicolumn"></td>
+                        <td class="multicolumn"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <p>
+    <table class="section">
+        <tr class="decor index-decor heading-text">
+            <td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td>
+        </tr>
+
+        <tr>
+            <td class="decor index-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
+            <td>&nbsp;</td>
+            <td class="singlecolumn">
+                <dl>
+                    <dt class="heading-text"><a href="builtins.html#object">builtins.object</a>
+                    </dt>
+                    <dd>
+                        <dl>
+                            <dt class="heading-text"><a
+                                    href="InventoryDatabase.html#InventoryDatabase">InventoryDatabase</a>
+                            </dt>
+                        </dl>
+                    </dd>
+                </dl>
+                <p>
+                <table class="section">
+                    <tr class="decor title-decor heading-text">
+                        <td class="section-title" colspan=3>&nbsp;<br><a name="InventoryDatabase">class
+                                <strong>InventoryDatabase</strong></a>(<a
+                                href="builtins.html#object">builtins.object</a>)</td>
+                    </tr>
+
+                    <tr>
+                        <td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+                        <td class="decor title-decor" colspan=2><span class="code"><a
+                                    href="#InventoryDatabase">InventoryDatabase</a>.py<br>
+                                10/20/2025<br>
+                                Anthony&nbsp;Langer,&nbsp;Ian&nbsp;Flack<br>
+                                &nbsp;<br>
+                                This&nbsp;class&nbsp;manages&nbsp;the&nbsp;inventory&nbsp;database&nbsp;by&nbsp;reading&nbsp;item&nbsp;data&nbsp;from&nbsp;a&nbsp;CSV&nbsp;file.<br>
+                                It&nbsp;creates&nbsp;ItemInfo&nbsp;objects&nbsp;for&nbsp;each&nbsp;item&nbsp;and&nbsp;stores&nbsp;them&nbsp;in&nbsp;a&nbsp;itemlist[].<br>
+                                provides&nbsp;methods&nbsp;to&nbsp;access&nbsp;and&nbsp;manipulate&nbsp;the&nbsp;inventory&nbsp;data.<br>&nbsp;</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                        <td class="singlecolumn">Methods defined here:<br>
+                            <dl>
+                                <dt><a name="InventoryDatabase-create_new_item"><strong>create_new_item</strong></a>(
+                                    itemName,
+                                    itemDescription,
+                                    itemCondition,
+                                    itemCategory,
+                                    itemPrice
+                                    )</dt>
+                                <dd><span
+                                        class="code">Creates&nbsp;a&nbsp;new&nbsp;item&nbsp;and&nbsp;adds&nbsp;it&nbsp;to&nbsp;the&nbsp;item&nbsp;list.<br>
+                                        Takes&nbsp;all&nbsp;item&nbsp;name,&nbsp;description,&nbsp;condition,&nbsp;category,&nbsp;and&nbsp;price&nbsp;as&nbsp;input.&nbsp;Generates&nbsp;a&nbsp;default&nbsp;itemID&nbsp;<br>
+                                        and&nbsp;userID&nbsp;from&nbsp;the&nbsp;current&nbsp;user.&nbsp;Returns&nbsp;the&nbsp;created&nbsp;ItemInfo&nbsp;<a
+                                            href="builtins.html#object">object</a>.</span></dd>
+                            </dl>
+
+                            <dl>
+                                <dt><a
+                                        name="InventoryDatabase-get_item_with_id"><strong>get_item_with_id</strong></a>(self,
+                                    itemID)</dt>
+                                <dd><span class="code">Gets&nbsp;an&nbsp;item&nbsp;by&nbsp;its&nbsp;itemID.<br>
+                                        Returns&nbsp;the&nbsp;ItemInfo&nbsp;<a
+                                            href="builtins.html#object">object</a>&nbsp;if&nbsp;found,&nbsp;else&nbsp;returns&nbsp;None.</span>
+                                </dd>
+                            </dl>
+
+                            <dl>
+                                <dt><a
+                                        name="InventoryDatabase-get_items_with_user_id"><strong>get_items_with_user_id</strong></a>(self,
+                                    userID)</dt>
+                                <dd><span
+                                        class="code">Gets&nbsp;ALL&nbsp;items&nbsp;associated&nbsp;with&nbsp;a&nbsp;specific&nbsp;userID.<br>
+                                        Returns&nbsp;a&nbsp;list&nbsp;of&nbsp;ItemInfo&nbsp;objects.</span></dd>
+                            </dl>
+
+                            <dl>
+                                <dt><a name="InventoryDatabase-make_sold"><strong>make_sold</strong></a>(item)</dt>
+                                <dd><span
+                                        class="code">Marks&nbsp;an&nbsp;item&nbsp;as&nbsp;sold&nbsp;by&nbsp;updating&nbsp;its&nbsp;status&nbsp;and&nbsp;moving&nbsp;it&nbsp;to&nbsp;the&nbsp;log&nbsp;list.<br>
+                                        Takes&nbsp;an&nbsp;ItemInfo&nbsp;<a
+                                            href="builtins.html#object">object</a>&nbsp;as&nbsp;input,&nbsp;and&nbsp;returns&nbsp;nothing.</span>
+                                </dd>
+                            </dl>
+
+                            <dl>
+                                <dt><a name="InventoryDatabase-update_csv"><strong>update_csv</strong></a>()</dt>
+                                <dd><span
+                                        class="code">Updates&nbsp;the&nbsp;CSV&nbsp;files&nbsp;with&nbsp;the&nbsp;current&nbsp;item&nbsp;lists&nbsp;<br>
+                                        Calls&nbsp;UpdateCSVs&nbsp;using&nbsp;the&nbsp;itemList&nbsp;and&nbsp;logItemList.</span>
+                                </dd>
+                            </dl>
+
+                            <hr>
+                            Data descriptors defined here:<br>
+                            <dl>
+                                <dt><strong>__dict__</strong></dt>
+                                <dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+                            </dl>
+                            <dl>
+                                <dt><strong>__weakref__</strong></dt>
+                                <dd><span
+                                        class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span>
+                                </dd>
+                            </dl>
+                            <hr>
+                            Data and other attributes defined here:<br>
+                            <dl>
+                                <dt><strong>curID</strong> = '1003'
+                            </dl>
+
+                            <dl>
+                                <dt><strong>f</strong> = &lt;_io.TextIOWrapper name='CSV/JJLogInventory.csv' mode='r'
+                                    encoding='cp1252'&gt;
+                            </dl>
+
+                            <dl>
+                                <dt><strong>item</strong> = &lt;ItemInfo.ItemInfo object&gt;
+                            </dl>
+
+                            <dl>
+                                <dt><strong>itemList</strong> = [&lt;ItemInfo.ItemInfo object&gt;, &lt;ItemInfo.ItemInfo
+                                    object&gt;, &lt;ItemInfo.ItemInfo object&gt;, &lt;ItemInfo.ItemInfo object&gt;]
+                            </dl>
+
+                            <dl>
+                                <dt><strong>logItem</strong> = &lt;ItemInfo.ItemInfo object&gt;
+                            </dl>
+
+                            <dl>
+                                <dt><strong>logItemList</strong> = [&lt;ItemInfo.ItemInfo object&gt;,
+                                    &lt;ItemInfo.ItemInfo object&gt;]
+                            </dl>
+
+                            <dl>
+                                <dt><strong>reader</strong> = &lt;_csv.reader object&gt;
+                            </dl>
+
+                            <dl>
+                                <dt><strong>row</strong> = ['4444', '00000', 'Test Item', 'This is a test item for
+                                    demonstration purposes.', 'New', 'Miscellaneous', '10.00', 'Sold', '']
+                            </dl>
+
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>
