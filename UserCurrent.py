@@ -1,5 +1,7 @@
 from UserDatabase import UserDatabase
 class UserCurrent:
+    
+    
     def __init__(self, userID, name, email, password):
         self.userID = userID
         self.name = name
@@ -28,6 +30,10 @@ class UserCurrent:
                 )
         return None
     
+    users_items = {}
+    
     current_user = None
     def set_current_user(user):
         UserCurrent.current_user = user
+        
+        users_items = UserDatabase.get_user_items(UserCurrent.current_user.user_id)

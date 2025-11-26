@@ -2,11 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import *
 from tkinter.constants import *
-import csv
 from tkinter import messagebox
 from UserCurrent import UserCurrent
 from UserDatabase import UserDatabase
-import random
 
 #---- TODO Refactor This File ----#
 '''
@@ -14,13 +12,10 @@ Is used to create account by passing information frrom user input fields to csv 
 
 '''
 def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
-    # 1. Get the string from the Entry widget
     name = entry_field1.get()
     email = entry_field2.get()
     password = entry_field3.get()
-    userID = str(random.randint(10000, 99999)) # TODO: Generate a random 5-digit userID that DOES NOT already exist
-    # 2. Open the CSV file in append mode ('a')
-    # Use newline='' for proper CSV handling in Python 3
+
     if not name or not email or not password:
         messagebox.showwarning("Input Error", "Please enter some data before saving.")
         return
@@ -31,7 +26,7 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
             messagebox.showwarning("Input Error", "User already exists. Please use a different email.")
             return
         UserDatabase.create_account(name, email, password)
-        messagebox.showinfo("Success", f"Data saved: '{name}', '{email}', '{password}'")
+        messagebox.showinfo("Success", f"Data saved: '{name}', '{email}', '{password}")
         # Optional: Clear the entry field after saving
         entry_field1.delete(0, tk.END) 
         entry_field2.delete(0, tk.END) 
@@ -182,12 +177,19 @@ class ImagePopup(tk.Toplevel):
         
         desc_label = tk.Label(self, text=description, wraplength=400, justify="left")
         desc_label.pack(pady=10, padx=10)
-
+        
+        
+def UserButtonFunction(self, controller):
+    
+    controller.show_frame("UserPage")
 #------------------ Home Page ------------------ #
 class HomePage(tk.Frame):
     
     #tk.Tk().rowconfigure(0, weight = 1)
     #tk.Tk().columnconfigure(0, weight = 1)
+
+
+
     
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -296,11 +298,26 @@ class UserPage(tk.Frame):
                   command=lambda: controller.show_frame("HomePage")).pack(side="bottom", pady=5)
         tk.Button(self, text='Log Out', width=15,
                   command=lambda: controller.show_frame("SignInPage")).pack(side="bottom", pady=5)
-
+        # Make pop up window to change password
+        # Ask for old password, then enter new password
+        # If old password is wrong, show error message try again
+        # If old password is correct, update password in UserDatabase and show success message
+        tk.Button(self, text='Change Password', width=15).pack(side="top", pady=5)
+        
+        
+        edit = Menu(self)
+        self.config(menu=edit)
+        editMenu = Menu(edit)
+        menu.add_cascade(label="Edit Items", menu=editMenu)
+        editMenu.add_command(label="Add Item")
+        editMenu.add_command(label="Remove Item")
+        editMenu.add_command(label="Edit Item Details")
+        menu.
+        
+        
+        
 if __name__ == "__main__":
     app = App()
     app.mainloop()
 
 # TODO: Update CSV files after program ends using UpdateCSVs
-update_user_csv()
-update_item_csv()
