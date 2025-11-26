@@ -8,8 +8,12 @@ from UserDatabase import UserDatabase
 
 #---- TODO Refactor This File ----#
 '''
-Is used to create account by passing information frrom user input fields to csv file.
-
+    Create_Acc_Data_To_csv
+    11/11/25
+    Sarkis Nazaryan
+    
+    collects three parameters from the Create Account page entry fields
+    and appends them as a new row to the users.csv file. 
 '''
 def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     name = entry_field1.get()
@@ -34,21 +38,18 @@ def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
     except Exception as e:
         messagebox.showerror("File Error", f"An error occurred while saving data: {e}")
 
-'''
-Combines the actions of passing data to csv
-and switching to sign-in page.
-'''
-
-def combined_functions(entry1, entry2, entry3, controller):
-    Create_Acc_Data_To_csv(entry1, entry2, entry3)
-    controller.show_frame("SignInPage")
+    
     
 #------------------ Application Class ------------------ #
 '''
-App is the main application class that manages different pages.
-It initializes the main window, sets up the frame container,
-and provides a method to switch between different pages.
-'''
+    App
+    10/20/25
+    Sarkis Nazaryan
+    
+    App is the main application class that manages different pages.
+    It initializes the main window, sets up the frame container,
+    and provides a method to switch between different pages.
+    '''
 class App(tk.Tk):
     def __init__(self):
         super().__init__()
@@ -86,6 +87,14 @@ class App(tk.Tk):
         
 #------------------ Sign-In Page ------------------ #
 def combine_sign_in(self, entry1, entry2, controller):
+        '''
+        combine_sign_in
+        11/19/25
+        Sarkis Nazaryan
+
+        combines the sign-in process by checking user credentials
+        and setting the current user if valid.
+        '''
         email = entry1.get()
         password = entry2.get()
         ##### user is current user #####
@@ -99,6 +108,15 @@ def combine_sign_in(self, entry1, entry2, controller):
             messagebox.showerror("Sign In Failed", "Invalid email or password.")
 
 class SignInPage(tk.Frame):
+    '''
+    SignInPage
+    11/19/25
+    Sarkis Nazaryan
+
+    Class for the sign-in page of the application.
+    Contains fields for email and password, and buttons for signing in,
+    creating an account, and exiting the app.
+    '''
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
@@ -117,10 +135,30 @@ class SignInPage(tk.Frame):
                   command=lambda: controller.show_frame("CreateUserPage")).grid(row=3, column=1)
         tk.Button(self, text="Exit App", width=10, command=controller.destroy).grid(row=4, column=1, sticky='n')
 
+    '''
+    combined_functions
+    11/11/25
+    Sarkis Nazaryan
     
+    Combines the actions of passing data to csv
+    and switching to sign-in page.
+    '''
+
+def combined_functions(entry1, entry2, entry3, controller):
+    Create_Acc_Data_To_csv(entry1, entry2, entry3)
+    controller.show_frame("SignInPage")
+
 #------------------ Create-User Page ------------------ #
 #page should be create over sign in page and should not destroy it. 
 class CreateUserPage(tk.Frame):
+    '''
+CreateUserPage
+11/19/25
+Sarkis Nazaryan
+
+Class for the create-user page of the application.
+Contains fields for name, email, and password, and buttons for creating an account
+'''
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
@@ -158,6 +196,15 @@ class CreateUserPage(tk.Frame):
 
 #------------------ Pop up window ------------------- #
 class ImagePopup(tk.Toplevel):
+    '''
+    Imagepopup
+    11/18/25
+    Leonel Villanueva
+
+Popup window class is used to display a larger image of the item that is being viewed as well 
+as its price, caption, and description. When this class is called in the HomePage class it creates 
+a seperate popup window displaying what picture and info passed to it.
+'''
     def __init__(self, parent, image_path, caption, description):
         super().__init__(parent)
         self.title("Listing Description")
@@ -184,11 +231,15 @@ def UserButtonFunction(self, controller):
     controller.show_frame("UserPage")
 #------------------ Home Page ------------------ #
 class HomePage(tk.Frame):
-    
-    #tk.Tk().rowconfigure(0, weight = 1)
-    #tk.Tk().columnconfigure(0, weight = 1)
+    '''
+    HomePage
+    11/18/25
+    Sarkis, Leonel Villanueva
 
-
+    Homepage class is responsible for displaying the main interface of the application, 
+    it includes the title, side banners, navigation buttons, and a scrollable area
+    that displays user posts with images and captions. One data structure that I used in this class
+    '''
 
     
     def __init__(self, parent, controller):
@@ -294,6 +345,10 @@ class UserPage(tk.Frame):
         right_banner = tk.Frame(self, width=50, bg="#585858")
         right_banner.pack(side="right", fill="y")
 
+        current_user_name = tk.Label(self, text=f'Welcome, {UserCurrent.current_user.name}!',
+                            font=("Times New Roman", 16), anchor="center")
+        current_user_name.pack(fill="x", side="top", pady=10)
+
         tk.Button(self, text="Home Page", width=15,
                   command=lambda: controller.show_frame("HomePage")).pack(side="bottom", pady=5)
         tk.Button(self, text='Log Out', width=15,
@@ -302,17 +357,18 @@ class UserPage(tk.Frame):
         # Ask for old password, then enter new password
         # If old password is wrong, show error message try again
         # If old password is correct, update password in UserDatabase and show success message
-        tk.Button(self, text='Change Password', width=15).pack(side="top", pady=5)
+
+        # tk.Button(self, text='Change Password', width=15,
+        #         command = lambda: ).pack(side="top", pady=5)
         
         
         edit = Menu(self)
         self.config(menu=edit)
         editMenu = Menu(edit)
-        menu.add_cascade(label="Edit Items", menu=editMenu)
+        # menu.add_cascade(label="Edit Items", menu=editMenu)
         editMenu.add_command(label="Add Item")
         editMenu.add_command(label="Remove Item")
         editMenu.add_command(label="Edit Item Details")
-        menu.
         
         
         
