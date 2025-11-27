@@ -330,6 +330,7 @@ class HomePage(tk.Frame):
         text_label.grid(row=1, column=0, sticky="s")
 
 #------------------ User Page ------------------ #
+
 class UserPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -345,30 +346,28 @@ class UserPage(tk.Frame):
         right_banner = tk.Frame(self, width=50, bg="#585858")
         right_banner.pack(side="right", fill="y")
 
-        current_user_name = tk.Label(self, text=f'Welcome, {UserCurrent.current_user.name}!',
-                            font=("Times New Roman", 16), anchor="center")
-        current_user_name.pack(fill="x", side="top", pady=10)
+        # Use a readonly ttk.Combobox instead of a popup menu
+        options = ["Delete Item", "Edit Item"]
+        combo_var = tk.StringVar()
+        options_combo = ttk.Combobox(self, textvariable=combo_var, values=options, state="readonly")
+        options_combo.set("Options")
+        options_combo.pack(pady=20)
 
-        tk.Button(self, text="Home Page", width=15,
-                  command=lambda: controller.show_frame("HomePage")).pack(side="bottom", pady=5)
-        tk.Button(self, text='Log Out', width=15,
-                  command=lambda: controller.show_frame("SignInPage")).pack(side="bottom", pady=5)
-        # Make pop up window to change password
-        # Ask for old password, then enter new password
-        # If old password is wrong, show error message try again
-        # If old password is correct, update password in UserDatabase and show success message
+        def on_option_selected(event):
+            choice = combo_var.get()
+            if choice == "Delete Item":
+                messagebox.showinfo("Action", "Delete Item selected")
+                # TODO: wire delete logic to selected item
+            elif choice == "Edit Item":
+                messagebox.showinfo("Action", "Edit Item selected")
+                # TODO: open edit dialog / populate edit form
+            # reset combobox to placeholder
+            options_combo.set("Options")
 
-        # tk.Button(self, text='Change Password', width=15,
-        #         command = lambda: ).pack(side="top", pady=5)
-        
-        
-        edit = Menu(self)
-        self.config(menu=edit)
-        editMenu = Menu(edit)
-        # menu.add_cascade(label="Edit Items", menu=editMenu)
-        editMenu.add_command(label="Add Item")
-        editMenu.add_command(label="Remove Item")
-        editMenu.add_command(label="Edit Item Details")
+        options_combo.bind("<<ComboboxSelected>>", on_option_selected)
+
+
+
         
         
         
