@@ -29,7 +29,7 @@ class UserDatabase:
             )
             userList.append(user)
 
-    def get_user_with_id(self, userID):
+    def get_user_with_id(userID):
         '''Gets a user by their userID.
         Returns the UserInfo object if found, else returns None.
         '''

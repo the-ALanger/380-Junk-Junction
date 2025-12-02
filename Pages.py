@@ -5,6 +5,7 @@ from tkinter.constants import *
 from tkinter import messagebox
 from UserCurrent import UserCurrent
 from UserDatabase import UserDatabase
+from InventoryDatabase import InventoryDatabase
 
 #---- TODO Refactor This File ----#
 '''
@@ -54,7 +55,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Junk Junction")
-        self.geometry("230x130")  # start size for sign-in
+        self.geometry("230x130")
 
         container = tk.Frame(self)
         container.pack(fill="both", expand=True)
@@ -71,18 +72,21 @@ class App(tk.Tk):
         self.show_frame("SignInPage")
 
     def show_frame(self, page_name):
-        # map page to desired window geometry
         sizes = {
             "SignInPage": "230x130",
             "HomePage": "800x600",
             "UserPage": "800x600",
-            "CreateUserPage":"800x600"
-
+            "CreateUserPage": "800x600"
         }
         geom = sizes.get(page_name)
         if geom:
             self.geometry(geom)
         frame = self.frames[page_name]
+        
+        # Refresh UserPage items only when switching to it
+        if page_name == "UserPage":
+            frame.refresh_items()
+        
         frame.tkraise()
         
 #------------------ Sign-In Page ------------------ #
@@ -332,45 +336,50 @@ class HomePage(tk.Frame):
 #------------------ User Page ------------------ #
 
 class UserPage(tk.Frame):
+    
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
+        self.items_frame = None
         
-        title = tk.Label(self, text='User Page', bg="#791919", fg="white",
-                         font=("Times New Roman", 20), anchor="center")
-        title.pack(fill="x", side="top")
-
-        left_banner = tk.Frame(self, width=50, bg="#585858")
-        left_banner.pack(side="left", fill="y")
-
-        right_banner = tk.Frame(self, width=50, bg="#585858")
-        right_banner.pack(side="right", fill="y")
-
-        # Use a readonly ttk.Combobox instead of a popup menu
-        options = ["Delete Item", "Edit Item"]
-        combo_var = tk.StringVar()
-        options_combo = ttk.Combobox(self, textvariable=combo_var, values=options, state="readonly")
-        options_combo.set("Options")
-        options_combo.pack(pady=20)
-
-        def on_option_selected(event):
-            choice = combo_var.get()
-            if choice == "Delete Item":
-                messagebox.showinfo("Action", "Delete Item selected")
-                # TODO: wire delete logic to selected item
-            elif choice == "Edit Item":
-                messagebox.showinfo("Action", "Edit Item selected")
-                # TODO: open edit dialog / populate edit form
-            # reset combobox to placeholder
-            options_combo.set("Options")
-
-        options_combo.bind("<<ComboboxSelected>>", on_option_selected)
-
-
-
+    def refresh_items(self):
+        """Refresh the page when user logs in."""
+        # Clear previous widgets
+        for widget in self.winfo_children():
+            widget.destroy()
         
+        # Get items for current user
+        user_id = UserCurrent.get_current_user_id()
         
+        if not user_id:
+            messagebox.showwarning("Error", "No user logged in.")
+            self.controller.show_frame("SignInPage")
+            return
+            
+        items = InventoryDatabase.get_items_with_user_id(user_id)
+
+        # Create a button for each item
+        title = tk.Label(self, text=f"Your Items", font=("Times New Roman", 14))
+        title.pack(pady=10)
         
+        if items:
+            for item in items:
+                # ItemInfo has attributes like item.itemName
+                btn = tk.Button(self, text=item.itemName,
+                               command=lambda i=item: self.on_item_click(i))
+                btn.pack(pady=5)
+        else:
+            tk.Label(self, text="No items found.").pack(pady=10)
+        
+        # Log out button
+        tk.Button(self, text='Log Out', width=15,
+                  command=lambda: self.controller.show_frame("SignInPage")).pack(side="bottom", pady=10)
+
+    def on_item_click(self, item):
+        # handle item button click
+        messagebox.showinfo("Item", f"You clicked: {item.itemName}")
+
+    #TODO: Add dropdown on each button to edit/delete/ item
 if __name__ == "__main__":
     app = App()
     app.mainloop()
