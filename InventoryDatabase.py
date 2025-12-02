@@ -16,11 +16,11 @@ class InventoryDatabase:
     """
         
     # Creating ItemInfo objects for each row in the CSV
-    curID=0
+    curItemID = 0
     itemList = []
     with open('CSV/JJInventoryDatabase.csv', newline='') as f:
         reader = csv.reader(f)
-        for row in csv.reader(f):
+        for row in reader:
             item = ItemInfo(
                 itemID=row[0],
                 userID=row[1],
@@ -33,10 +33,14 @@ class InventoryDatabase:
                 itemComments=row[8],
             )
             itemList.append(item)
-        curID=itemList[-1].itemID
+    if itemList:
+        try:
+            curItemID = int(itemList[-1].itemID)
+        except Exception:
+            curItemID = 0
 
-    # change the method signature to include self
-    def get_item_with_id(self, itemID):
+    @staticmethod
+    def get_item_with_id(itemID):
         '''Gets an item by its itemID.
         Returns the ItemInfo object if found, else returns None.
         '''
@@ -45,7 +49,8 @@ class InventoryDatabase:
                 return item
         return None
     
-    def get_items_with_user_id(self, userID):
+    @staticmethod
+    def get_items_with_user_id(userID):
         '''Gets ALL items associated with a specific userID.
         Returns a list of ItemInfo objects.
         '''
@@ -54,13 +59,23 @@ class InventoryDatabase:
             if item.userID == str(userID):
                 user_items.append(item)
         return user_items
+    
+    @staticmethod
+    def get_items_with_user(user):
+        '''Gets ALL items associated with a specific UserCurrent object.
+        Returns a list of ItemInfo objects.
+        '''
+        user_items = []
+        for item in InventoryDatabase.itemList:
+            if item.userID == str(user.userID):
+                user_items.append(item)
+        return user_items
 
-        
-    # Creating ItemInfo objects for each row in the CSV
+    # log list read
     logItemList = []
     with open('CSV/JJLogInventory.csv', newline='') as f:
         reader = csv.reader(f)
-        for row in csv.reader(f):
+        for row in reader:
             logItem = ItemInfo(
                 itemID=row[0],
                 userID=row[1],
@@ -74,7 +89,7 @@ class InventoryDatabase:
             )
             logItemList.append(logItem)
             
-    
+    @staticmethod
     def make_sold(item):
         ''' Marks an item as sold by updating its status and moving it to the log list.
         Takes an ItemInfo object as input, and returns nothing.
@@ -82,18 +97,22 @@ class InventoryDatabase:
         item.itemStatus = "Sold"
         for logItem in InventoryDatabase.logItemList:
             if logItem.itemID == str(item.itemID):
-                return  # Item already logged as sold
+                return
         InventoryDatabase.logItemList.append(item)
-        InventoryDatabase.itemList.remove(item)
-        
+        try:
+            InventoryDatabase.itemList.remove(item)
+        except ValueError:
+            pass
     
+    @staticmethod
     def create_new_item(itemName, itemDescription, itemCondition, itemCategory, itemPrice):
         ''' Creates a new item and adds it to the item list.
         Takes all item name, description, condition, category, and price as input. Generates a default itemID 
         and userID from the current user. Returns the created ItemInfo object.
         '''  
+        new_id = str(InventoryDatabase.curItemID + 1)
         newItem = ItemInfo(
-            itemID=str(int(InventoryDatabase.curItemID) + 1),
+            itemID=new_id,
             userID=UserCurrent.current_user.userID,
             itemName=itemName,
             itemDescription=itemDescription,
@@ -104,9 +123,10 @@ class InventoryDatabase:
             itemComments="",
         )
         InventoryDatabase.itemList.append(newItem)
+        InventoryDatabase.curItemID += 1
         return newItem
         
-    
+    @staticmethod
     def update_csv():
         ''' Updates the CSV files with the current item lists 
         Calls UpdateCSVs using the itemList and logItemList.
@@ -116,6 +136,6 @@ class InventoryDatabase:
 
         logFilename = "CSV/JJLogInventory.csv"
         UpdateCSVs.update_item_csv(logFilename, InventoryDatabase.logItemList)
-        
-    
-        
+
+
+
