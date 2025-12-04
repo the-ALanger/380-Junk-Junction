@@ -1,3 +1,4 @@
+from email import message
 import tkinter as tk
 from tkinter import messagebox
 from UserCurrent import UserCurrent
@@ -59,20 +60,27 @@ class CreateUserPage(tk.Frame):
         email = email_entry.get()
         password = password_entry.get()
 
+        noError = True
+        errorMessage = ""
         if not name or not email or not password:
-            messagebox.showwarning("Input Error", "Please enter some data before saving.")
-            return
-        
-        try:
+            errorMessage = "Input Error", "Please enter some data before saving."
+            noError = False
+        else:
             curUser = UserCurrent.check_if_user_exists_by_email(email)
             if curUser:
-                messagebox.showwarning("Input Error", "User already exists. Please use a different email.")
-                return
-            UserDatabase.create_account(name, email, password)
+                errorMessage = "Input Error", "User already exists. Please use a different email."
+                noError = False
+            else:
+                UserDatabase.create_account(name, email, password)
+        if errorMessage:
+            messagebox.showerror(errorMessage[0], errorMessage[1])
+        else:
             messagebox.showinfo("Success", f"Data saved: '{name}', '{email}'")
-            # Clear the entry fields after saving
-            name_entry.delete(0, tk.END) 
-            email_entry.delete(0, tk.END) 
-            password_entry.delete(0, tk.END)
-        except Exception as e:
-            messagebox.showerror("File Error", f"An error occurred while saving data: {e}")
+        # Clear the entry fields after saving
+        name_entry.delete(0, tk.END) 
+        email_entry.delete(0, tk.END) 
+        password_entry.delete(0, tk.END)
+        
+        return noError
+        
+        

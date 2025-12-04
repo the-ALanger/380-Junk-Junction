@@ -29,7 +29,11 @@ class UserDatabase:
                 password=row[3]
             )
             userList.append(user)
-    curID = userList[-1].userID if userList else '00000'
+    if userList:
+        try:
+            curID = int(userList[-1].userID)
+        except Exception:
+            curID = 0
     def get_user_with_id(userID):
         '''Gets a user by their userID.
         Returns the UserInfo object if found, else returns None.

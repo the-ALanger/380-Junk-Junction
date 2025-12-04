@@ -96,10 +96,10 @@ class InventoryDatabase:
         ''' Marks an item as sold by updating its status and moving it to the log list.
         Takes an ItemInfo object as input, and returns nothing.
         '''
-        item.itemStatus = "Sold"
         for logItem in InventoryDatabase.logItemList:
             if logItem.itemID == str(item.itemID):
                 return
+        item.itemStatus = "Sold"
         InventoryDatabase.logItemList.append(item)
         try:
             InventoryDatabase.itemList.remove(item)
