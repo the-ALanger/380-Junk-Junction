@@ -15,6 +15,7 @@ class UserDatabase:
     """
 
     userList = []
+    
     with open('CSV/JJUserDatabase.csv', newline='') as f:
         
         '''On class load, read the CSV and populate userList with UserInfo objects.
@@ -28,7 +29,7 @@ class UserDatabase:
                 password=row[3]
             )
             userList.append(user)
-
+    curID = userList[-1].userID if userList else '00000'
     def get_user_with_id(userID):
         '''Gets a user by their userID.
         Returns the UserInfo object if found, else returns None.
