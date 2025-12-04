@@ -31,6 +31,7 @@ class InventoryDatabase:
                 itemPrice=row[6],
                 itemStatus=row[7],
                 itemComments=row[8],
+                itemImage=row[9]
             )
             itemList.append(item)
     if itemList:
@@ -86,6 +87,7 @@ class InventoryDatabase:
                 itemPrice=row[6],
                 itemStatus=row[7],
                 itemComments=row[8],
+                itemImage=row[9]
             )
             logItemList.append(logItem)
             
@@ -121,6 +123,7 @@ class InventoryDatabase:
             itemPrice=itemPrice,
             itemStatus="Available",
             itemComments="",
+            itemImage=""
         )
         InventoryDatabase.itemList.append(newItem)
         InventoryDatabase.curItemID += 1
