@@ -1,6 +1,6 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
-from InventoryDatabase import InventoryDatabase
+from tkinter import ttk, messagebox #Not being used
+from InventoryDatabase import InventoryDatabase #Not being used
 from ImagePopup import ImagePopup
 
 class HomePage(tk.Frame):
