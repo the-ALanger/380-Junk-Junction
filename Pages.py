@@ -6,6 +6,7 @@ import csv
 from tkinter import messagebox
 from UserCurrent import UserCurrent
 import random
+from InventoryDatabase import InventoryDatabase
 
 #---- TODO Refactor This File ----#
 
@@ -253,18 +254,14 @@ class HomePage(tk.Frame):
         for i in range(2):
             center_area.columnconfigure(i, weight=1, uniform="col")
             center_area.rowconfigure(i, weight=1, uniform="row")
+
+        images = []
+
+        #TODO: implement dynamic images
+        for item in InventoryDatabase.itemList[1:]:
+            images.append(["images/Charzard.png", item.itemName, item.itemDescription])
         
         #added description for individual images that show when image is clicked on
-        images = [
-            ("images/Charzard.png", "Charizard 1", "This is a super rare limited edition charizard and its worth 67$"),
-            ("images/Charzard2.png", "Charizard 2", "This is a super rare limited edition charizard"),
-            ("images/Charzard3.png", "Charizard 3", "This is a super rare limited edition charizard"),
-            ("images/Charzard4.png", "Charizard 4", "This is a super rare limited edition charizard"),
-            ("images/Charzard.png", "Charizard 1", "This is a super rare limited edition charizard"),
-            ("images/Charzard2.png", "Charizard 2", "This is a super rare limited edition charizard"),
-            ("images/Charzard3.png", "Charizard 3", "This is a super rare limited edition charizard"),
-            ("images/Charzard4.png", "Charizard 4", "This is a super rare limited edition charizard"),
-        ]
 
         for i, (path, caption, description) in enumerate(images):
             self.User_post(center_area, path, caption, description, row=i//2, col=i%2)
