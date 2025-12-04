@@ -1,6 +1,6 @@
 
 from InventoryDatabase import InventoryDatabase
-from UserCurrent import UserCurrent
+# from UserCurrent import UserCurrent
 
 
 def test_get_item_with_id():

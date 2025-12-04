@@ -25,12 +25,7 @@ class UserCurrent:
         '''
         for user in UserDatabase.userList:
             if user.email == email and user.password == password:
-                return UserCurrent(
-                    userID=user.userID,
-                    name=user.name,
-                    email=user.email,
-                    password=user.password
-                )
+                return user
         return None
     
     @staticmethod
@@ -40,12 +35,7 @@ class UserCurrent:
         '''
         for user in UserDatabase.userList:
             if user.email == email:
-                return UserCurrent(
-                    userID=user.userID,
-                    name=user.name,
-                    email=user.email,
-                    password=user.password
-                )
+                return user
         return None
             
     @staticmethod
