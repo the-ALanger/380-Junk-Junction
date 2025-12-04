@@ -1,3 +1,26 @@
+import tkinter as tk
+from tkinter import ttk
+from tkinter import *
+from tkinter.constants import *
+import csv
+from tkinter import messagebox
+from UserCurrent import UserCurrent
+import random
+from InventoryDatabase import InventoryDatabase
+
+#---- TODO Refactor This File ----#
+
+def Create_Acc_Data_To_csv(entry_field1, entry_field2, entry_field3):
+    # 1. Get the string from the Entry widget
+    name = entry_field1.get()
+    email = entry_field2.get()
+    password = entry_field3.get()
+    userID = str(random.randint(10000, 99999)) # TODO: Generate a random 5-digit userID that DOES NOT already exist
+    # 2. Open the CSV file in append mode ('a')
+    # Use newline='' for proper CSV handling in Python 3
+    if not name or not email or not password:
+        messagebox.showwarning("Input Error", "Please enter some data before saving.")
+        return
 # import tkinter as tk
 # from tkinter import ttk
 # from tkinter import *
@@ -177,6 +200,55 @@
 #         email_entry = tk.Entry(self)
 #         password_entry = tk.Entry(self, show="*")
         
+        # Display Larger Image
+        try: 
+            photo = tk.PhotoImage(file=image_path)
+        except tk.TclError:
+            photo = tk.PhotoImage(width=600, height=450)
+        
+        img_label = ttk.Label(self, image=photo)
+        img_label.image = photo  # keep reference
+        img_label.grid(row=0, column=0, sticky="n", pady=(0,5))
+
+        #frame keeping comments on right of image
+        comment_frame = ttk.Frame(self)
+        comment_frame.grid(row=0, column=1, sticky="n", padx=20, pady=10)
+
+        comments = tk.Label(comment_frame, text="Comments", font=("Times New Roman",12))
+        comments.grid(row=0, column=0, sticky="w")
+
+        #comment text box
+        comments_entry = tk.Text(comment_frame, width= 40, height= 10)
+        comments_entry.grid(row= 1, column= 0, pady= 10, sticky= "w")
+
+        #comment submit button
+        submit_info = tk.Button(
+        comment_frame,
+        text="Submit Comment", 
+        width=15,
+        command=lambda: combined_functions(comments_entry)
+        )
+        submit_info.grid(row=2, column=0, sticky="e")
+
+        caption_label = ttk.Label(self, text=caption, font=("Times New Roman",12), wraplength=200)
+        caption_label.grid(row=1, column=0, sticky="s")
+        
+        desc_label = tk.Label(self, text=description, font=("Times New Roman",16), wraplength=400, justify="left")
+        desc_label.grid(pady=10, padx=10)
+
+        self.transient(parent)
+        self.grab_set_global()
+
+# Between these two classes I have to make it so the pop up button is the photo itself and when the photo is
+# clicked it displays a larger version of the photo as well as as a description and price
+# once I am able to display the charizard images as well as their description I want to be able to have custom
+# inputs that display the actual user images plus their description
+#------------------ Home Page ------------------ #
+class HomePage(tk.Frame):
+    
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+        self.controller = controller
 #         name_entry.grid(row=0, column=1, padx=10, pady=5)
 #         email_entry.grid(row=1, column=1, padx=10, pady=5)
 #         password_entry.grid(row=2, column=1, padx=10, pady=5)
@@ -260,6 +332,13 @@
 #         right_banner = tk.Frame(self, width=50, bg="#312b2b")
 #         right_banner.pack(side="right", fill="y") 
         
+        #this is the frame that I want to be able to scroll
+        center_area = tk.Frame(self, bg="#d0d5dc")
+
+        tk.Button(self, text='Log Out', width=15,
+                  command=lambda: controller.show_frame("SignInPage")).pack(side="bottom", pady=5)
+        tk.Button(self, text='User Page', width=15,
+                  command=lambda: controller.show_frame("UserPage")).pack(side="bottom", pady=5)
 #         #this is the frame that I want to be able to scroll
 #         center_area = tk.Frame(self, bg="#d0d5dc")
 
@@ -289,11 +368,23 @@
 #         center_area = tk.Frame(canvas, bg="#fafafb")
 #         canvas_window = canvas.create_window((0, 0), window=center_area, anchor="nw")
         
+        for i in range(2):
+            center_area.columnconfigure(i, weight=1, uniform="col")
+            center_area.rowconfigure(i, weight=1, uniform="row")
+
+        images = []
+
+        #TODO: implement dynamic images
+        for item in InventoryDatabase.itemList[1:]:
+            images.append(["images/Charzard.png", item.itemName, item.itemDescription])
 #         for i in range(2):
 #             center_area.columnconfigure(i, weight=1, uniform="col")
 #             center_area.rowconfigure(i, weight=1, uniform="row")
         
+        #added description for individual images that show when image is clicked on
 
+        for i, (path, caption, description) in enumerate(images):
+            self.User_post(center_area, path, caption, description, row=i//2, col=i%2)
 #         images = [
 #             ("images/Charzard.png", "bro"),
 #             ("images/Charzard2.png", "this"),
@@ -368,6 +459,30 @@
 #         for widget in self.winfo_children():
 #             widget.destroy()
         
+    def User_post(self, parent, image_path, caption, description, row, col):   
+        frame = ttk.Frame(parent, padding=10)
+        frame.grid(row=row, column=col, sticky="nsew", padx=5, pady=5)
+        frame.columnconfigure(0, weight=1)
+
+        try:
+            photo = tk.PhotoImage(file=image_path)
+        except tk.TclError:
+            photo = tk.PhotoImage(width=200, height=50)  # placeholder
+
+        img_label = ttk.Label(frame, image=photo)
+        img_label.image = photo  # keep reference
+        img_label.grid(row=0, column=0, sticky="n", pady=(0,5))
+
+        img_label.bind("<Button>", lambda e, p = image_path, c = caption, d = description : ImagePopup(self, p, c, d))
+
+        text_label = ttk.Label(frame, text=caption, font=("Times New Roman",10), wraplength=200)
+        text_label.grid(row=1, column=0, sticky="s")
+
+#------------------ User Page ------------------ #
+class UserPage(tk.Frame):
+    def __init__(self, parent, controller):
+        super().__init__(parent)
+        self.controller = controller
 #         # Get items for current user
 #         user_id = UserCurrent.get_current_user_id()
         
