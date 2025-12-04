@@ -35,7 +35,7 @@ class HomePage(tk.Frame):
     '''
     HomePage
     11/18/25
-    Sarkis, Leonel Villanueva
+    Sarkis Nazaryan, Leonel Villanueva
 
     Homepage class is responsible for displaying the main interface of the application, 
     it includes the title, side banners, navigation buttons, and a scrollable area

@@ -5,6 +5,16 @@ from HomePage import HomePage
 from UserPage import UserPage
 
 class App(tk.Tk):
+    '''
+    App Class
+    12/2/25
+    Sarkis Nazaryan
+    
+    App class acts as the main controller for the Junk Junction application. 
+    It initializes the main window, manages different frames (pages), and handles 
+    navigation between them.
+    '''
+    
     def __init__(self):
         super().__init__()
         self.title("Junk Junction")

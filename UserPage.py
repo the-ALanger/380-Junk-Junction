@@ -4,6 +4,14 @@ from UserCurrent import UserCurrent
 from InventoryDatabase import InventoryDatabase
 
 class UserPage(tk.Frame):
+    '''
+    UserPage    
+    11/18/25
+    Sarkis Nazaryan
+    
+    UserPage class is responsible for displaying the items and user information
+    posted by the currently logged-in user. 
+    '''
     
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -37,6 +45,8 @@ class UserPage(tk.Frame):
         
         tk.Button(self, text='Log Out', width=15,
                   command=lambda: self.controller.show_frame("SignInPage")).pack(side="bottom", pady=10)
+        tk.Button(self, text='Home Page', width=15,
+                  command=lambda: self.controller.show_frame("HomePage")).pack(side="bottom")
 
     def on_item_click(self, item):
         messagebox.showinfo("Item", f"You clicked: {item.itemName}")
