@@ -1,63 +1,29 @@
-# import tkinter as tk
+import tkinter as tk
 
-# class MyApp(tk.Frame):
+def delete_item():
+    print("Delete Item selected")
 
-#     def __init__(self, root):
-    
-#         self.color1 = 'darkred'
-#         self.color2 = 'brown'
+def edit_item():
+    print("Edit Item selected")
 
-#         super().__init__(
-#             root,
-            
-#         )
+page = tk.Tk()
+page.title("Dropdown Example")
+page.geometry("300x200")
 
-#         self.main_frame = self
+# --- Create the Menu ---
+options_menu = tk.Menu(page, tearoff=0)
+options_menu.add_command(label="Delete Item", command=delete_item)
+options_menu.add_command(label="Edit Item", command=edit_item)
 
-#         self.main_frame.pack(fill=tk.BOTH, expand=True)
-#         self.main_frame.columnconfigure(0, weight=1)
-#         self.main_frame.rowconfigure(0, weight=1)
+# --- Create the Options Button ---
+def open_menu(event):
+    # Popup the menu at the cursor position
+    options_menu.tk_popup(event.x_root, event.y_root)
 
-#         self.load_main_widgets()
+options_button = tk.Button(page, text="Options")
+options_button.pack(pady=20)
 
-#     def load_main_widgets(self):
-#         self.create_page_container
-#         self.create_pager()
+# Bind left-click to open the menu
+options_button.bind("<Button-1>", open_menu)
 
-#     def create_page_container(self):
-#         self.create_page_container - tk.Frame(
-#             self.main_frame,
-#             background=self.color1
-#         )
-
-        
-
-#     def create_pager(self):
-#         pass
-
-
-# root = tk.Tk()
-# root.title('My App')
-# root.geometry('800x600')
-# root.resizable(width=False, height=False)
-# my_app_instance = MyApp(root)
-# root.mainloop()
-import csv
-
-data = [
-    ["Name", "Age", "City"],
-    ["Alice", 30, "New York"],
-    ["Bob", 25, "London"],
-    ["Charlie", 35, "Paris"]
-]
-
-filename = "people.csv"
-
-with open(filename, 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerows(data) # Writes all rows at once
-    # Alternatively, to write row by row:
-    # for row in data:
-    #     writer.writerow(row)
-
-print(f"CSV file '{filename}' created successfully.")
+page.mainloop()
