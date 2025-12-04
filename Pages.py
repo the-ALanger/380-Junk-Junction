@@ -169,23 +169,47 @@ class ImagePopup(tk.Toplevel):
         try: 
             photo = tk.PhotoImage(file=image_path)
         except tk.TclError:
-            photo = tk.PhotoImage(width=400, height=300)
+            photo = tk.PhotoImage(width=600, height=450)
         
         img_label = ttk.Label(self, image=photo)
         img_label.image = photo  # keep reference
         img_label.grid(row=0, column=0, sticky="n", pady=(0,5))
 
-        text_label = ttk.Label(self, text=caption, font=("Times New Roman",10), wraplength=200)
-        text_label.grid(row=1, column=0, sticky="s")
-        
-        desc_label = tk.Label(self, text=description, wraplength=400, justify="left")
-        desc_label.pack(pady=10, padx=10)
+        #frame keeping comments on right of image
+        comment_frame = ttk.Frame(self)
+        comment_frame.grid(row=0, column=1, sticky="n", padx=20, pady=10)
 
+        comments = tk.Label(comment_frame, text="Comments", font=("Times New Roman",12))
+        comments.grid(row=0, column=0, sticky="w")
+
+        #comment text box
+        comments_entry = tk.Text(comment_frame, width= 40, height= 10)
+        comments_entry.grid(row= 1, column= 0, pady= 10, sticky= "w")
+
+        #comment submit button
+        submit_info = tk.Button(
+        comment_frame,
+        text="Submit Comment", 
+        width=15,
+        command=lambda: combined_functions(comments_entry)
+        )
+        submit_info.grid(row=2, column=0, sticky="e")
+
+        caption_label = ttk.Label(self, text=caption, font=("Times New Roman",12), wraplength=200)
+        caption_label.grid(row=1, column=0, sticky="s")
+        
+        desc_label = tk.Label(self, text=description, font=("Times New Roman",16), wraplength=400, justify="left")
+        desc_label.grid(pady=10, padx=10)
+
+        self.transient(parent)
+        self.grab_set_global()
+
+# Between these two classes I have to make it so the pop up button is the photo itself and when the photo is
+# clicked it displays a larger version of the photo as well as as a description and price
+# once I am able to display the charizard images as well as their description I want to be able to have custom
+# inputs that display the actual user images plus their description
 #------------------ Home Page ------------------ #
 class HomePage(tk.Frame):
-    
-    #tk.Tk().rowconfigure(0, weight = 1)
-    #tk.Tk().columnconfigure(0, weight = 1)
     
     def __init__(self, parent, controller):
         super().__init__(parent)
@@ -208,10 +232,6 @@ class HomePage(tk.Frame):
                   command=lambda: controller.show_frame("SignInPage")).pack(side="bottom", pady=5)
         tk.Button(self, text='User Page', width=15,
                   command=lambda: controller.show_frame("UserPage")).pack(side="bottom", pady=5)
-        tk.Button(self, text='Pop-up', width=15,
-                  command=lambda: ImagePopup(self, "images/Charzard.png",
-                                     "Caption about charizard",
-                                     "This is an example popup description.")).pack(side="bottom", pady=5)
         
         #container Frame
         scroll_container = tk.Frame(self, bg="#2a6cc8")
@@ -234,21 +254,20 @@ class HomePage(tk.Frame):
             center_area.columnconfigure(i, weight=1, uniform="col")
             center_area.rowconfigure(i, weight=1, uniform="row")
         
-
+        #added description for individual images that show when image is clicked on
         images = [
-            ("images/Charzard.png", "bro"),
-            ("images/Charzard2.png", "this"),
-            ("images/Charzard3.png", "is"),
-            ("images/Charzard4.png", "charizard"),
-            ("images/Charzard.png", "bro"),
-            ("images/Charzard2.png", "this"),
-            ("images/Charzard3.png", "is"),
-            ("images/Charzard4.png", "charizard"),
+            ("images/Charzard.png", "Charizard 1", "This is a super rare limited edition charizard and its worth 67$"),
+            ("images/Charzard2.png", "Charizard 2", "This is a super rare limited edition charizard"),
+            ("images/Charzard3.png", "Charizard 3", "This is a super rare limited edition charizard"),
+            ("images/Charzard4.png", "Charizard 4", "This is a super rare limited edition charizard"),
+            ("images/Charzard.png", "Charizard 1", "This is a super rare limited edition charizard"),
+            ("images/Charzard2.png", "Charizard 2", "This is a super rare limited edition charizard"),
+            ("images/Charzard3.png", "Charizard 3", "This is a super rare limited edition charizard"),
+            ("images/Charzard4.png", "Charizard 4", "This is a super rare limited edition charizard"),
         ]
 
-        for i, (path, text) in enumerate(images):
-            self.User_post(center_area, path, text, row=i//2, col=i%2)
-            #center_area.pack(fill="both", expand=True)
+        for i, (path, caption, description) in enumerate(images):
+            self.User_post(center_area, path, caption, description, row=i//2, col=i%2)
         
         def update_scroll_region(event=None):
             canvas.configure(scrollregion=canvas.bbox("all"))
@@ -257,7 +276,7 @@ class HomePage(tk.Frame):
         center_area.bind("<Configure>", update_scroll_region)
         canvas.bind("<Configure>", update_scroll_region)
         
-    def User_post(self, parent, image_path, caption, row, col):   
+    def User_post(self, parent, image_path, caption, description, row, col):   
         frame = ttk.Frame(parent, padding=10)
         frame.grid(row=row, column=col, sticky="nsew", padx=5, pady=5)
         frame.columnconfigure(0, weight=1)
@@ -270,6 +289,8 @@ class HomePage(tk.Frame):
         img_label = ttk.Label(frame, image=photo)
         img_label.image = photo  # keep reference
         img_label.grid(row=0, column=0, sticky="n", pady=(0,5))
+
+        img_label.bind("<Button>", lambda e, p = image_path, c = caption, d = description : ImagePopup(self, p, c, d))
 
         text_label = ttk.Label(frame, text=caption, font=("Times New Roman",10), wraplength=200)
         text_label.grid(row=1, column=0, sticky="s")
