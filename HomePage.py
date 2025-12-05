@@ -52,29 +52,18 @@ class HomePage(tk.Frame):
             center_area.rowconfigure(i, weight=1, uniform="row")
 
         #added description for individual images that show when image is clicked on 
-        images = [
-            ("images/Charzard.png", "Charizard 1", "This is a super rare limited edition charizard and its worth 67$"),
-            ("images/Charzard2.png", "Charizard 2", "This is a super rare limited edition charizard"),
-            ("images/Charzard3.png", "Charizard 3", "This is a super rare limited edition charizard"),
-            ("images/Charzard4.png", "Charizard 4", "This is a super rare limited edition charizard"),
-            ("images/Charzard.png", "Charizard 1", "This is a super rare limited edition charizard"),
-            ("images/Charzard2.png", "Charizard 2", "This is a super rare limited edition charizard"),
-            ("images/Charzard3.png", "Charizard 3", "This is a super rare limited edition charizard"),
-            ("images/Charzard4.png", "Charizard 4", "This is a super rare limited edition charizard"),
-        ]
+        images = []
+
+        for item in InventoryDatabase.itemList:
+            if item.itemStatus == "Available":
+                images.append((
+                    item.itemImage,
+                    f"{item.itemName} - ${item.itemPrice}",
+                    item.itemDescription
+                ))
 
         for i, (path, caption, description) in enumerate(images):
             self.User_post(center_area, path, caption, description, row=i//2, col=i%2)
-        
-        # for i, item in enumerate(InventoryDatabase.itemList):
-        #     if item.itemStatus == "Available":
-        #         self.User_post(
-        #             center_area,
-        #             f"images/{item.itemID}.png",
-        #             f"{item.itemName} - ${item.itemPrice}",
-        #             row=len(images)//2 + i//2,
-        #             col=i%2
-        #         )
         
         def update_scroll_region(event=None):
             canvas.configure(scrollregion=canvas.bbox("all"))
@@ -90,8 +79,17 @@ class HomePage(tk.Frame):
 
         try:
             photo = tk.PhotoImage(file=image_path)
-        except tk.TclError:
-            photo = tk.PhotoImage(width=200, height=50)  # placeholder
+            # Resize image by subsampling (scale down by factor of 2 if too large)
+            if photo.width() > 200 or photo.height() > 150:
+                scale_x = max(1, photo.width() // 200)
+                scale_y = max(1, photo.height() // 150)
+                scale = max(scale_x, scale_y)
+                photo = photo.subsample(scale, scale)
+        except tk.TclError as e:
+            print(f"Image load error for '{image_path}': {e}")
+            # Create a gray placeholder with text
+            photo = tk.PhotoImage(width=200, height=150)
+            photo.put("gray", to=(0, 0, 200, 150))
 
         img_label = ttk.Label(frame, image=photo)
         img_label.image = photo  # keep reference
