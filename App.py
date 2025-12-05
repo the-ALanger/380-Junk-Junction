@@ -40,6 +40,7 @@ class App(tk.Tk):
             "HomePage": "800x600",
             "UserPage": "800x600",
             "CreateUserPage": "800x600"
+            #TODO: adjust for ImagePopup
         }
         geom = sizes.get(page_name)
         if geom:
