@@ -1,4 +1,4 @@
-from email import message
+from email import message #Does nothing no email.py
 import tkinter as tk
 from tkinter import messagebox
 from UserCurrent import UserCurrent
@@ -32,20 +32,12 @@ class CreateUserPage(tk.Frame):
         self.password_entry.grid(row=2, column=1, padx=10, pady=5)
         
         # Buttons
-        submit_info = tk.Button(
-            self,
-            text="Create Account",
-            width=15,
-            command=self.create_and_return
-        )
+        submit_info = tk.Button(self, text="Create Account", width=15,
+                    command=self.create_and_return)
         submit_info.grid(row=3, column=1, pady=10)
         
-        return_to_sign_in = tk.Button(
-            self,
-            text="Return to Sign In",
-            width=15,
-            command=lambda: controller.show_frame("SignInPage")
-        )
+        return_to_sign_in = tk.Button( self, text="Return to Sign In", width=15,
+            command=lambda: controller.show_frame("SignInPage"))
         return_to_sign_in.grid(row=4, column=1, pady=5)
 
     def create_and_return(self):

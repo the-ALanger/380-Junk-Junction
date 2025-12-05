@@ -18,7 +18,7 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Junk Junction")
-        self.geometry("230x130")
+        self.geometry("800x600")
 
         container = tk.Frame(self)
         container.pack(fill="both", expand=True)
@@ -36,7 +36,7 @@ class App(tk.Tk):
 
     def show_frame(self, page_name):
         sizes = {
-            "SignInPage": "230x130",
+            "SignInPage": "800x600",
             "HomePage": "800x600",
             "UserPage": "800x600",
             "CreateUserPage": "800x600"
