@@ -2,7 +2,8 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 from UserCurrent import UserCurrent
 from InventoryDatabase import InventoryDatabase
-from ImagePopup import ImagePopup
+from UserImagePopup import UserImagePopup
+from HomePage import HomePage
 
 class UserPage(tk.Frame):
     '''
@@ -84,9 +85,12 @@ class UserPage(tk.Frame):
                   command=lambda: self.controller.show_frame("SignInPage")).pack(side="bottom", pady=5)
         tk.Button(self, text='Home Page', width=15,
                   command=lambda: self.controller.show_frame("HomePage")).pack(side="bottom", pady=5)
-
-    def on_item_click(self, item):
-        messagebox.showinfo("Item", f"You clicked: {item.itemName}")
+        # replaced: show AddItemPage -> now prompts for item details inline
+        tk.Button(self, text='Add New Item', width=15,
+                  command=self.prompt_new_item).pack(side="bottom", pady=5)
+    
+    # def on_item_click(self, item):
+    #     messagebox.showinfo("Item", f"You clicked: {item.itemName}")
 
     def User_post(self, parent, image_path, caption, description, row, col):   
         frame = ttk.Frame(parent, padding=10)
@@ -111,7 +115,86 @@ class UserPage(tk.Frame):
         img_label.image = photo  # keep reference
         img_label.grid(row=0, column=0, sticky="n", pady=(0,5))
 
-        img_label.bind("<Button>", lambda e, p = image_path, c = caption, d = description : ImagePopup(self, p, c, d))
+        img_label.bind("<Button>", lambda e, p = image_path, c = caption, d = description : UserImagePopup(self, p, c, d))
 
         text_label = ttk.Label(frame, text=caption, font=("Times New Roman",10), wraplength=200)
         text_label.grid(row=1, column=0, sticky="s")
+
+    def prompt_new_item(self):
+        """Open a dialog to collect new item details and add to InventoryDatabase."""
+        user_id = UserCurrent.get_current_user_id()
+        if not user_id:
+            messagebox.showwarning("Error", "No user logged in.")
+            self.controller.show_frame("SignInPage")
+            return
+
+        dlg = tk.Toplevel(self)
+        dlg.title("Add New Item")
+        dlg.grab_set()
+
+        ttk.Label(dlg, text="Name:").grid(row=0, column=0, sticky="e", padx=5, pady=5)
+        name_var = tk.StringVar()
+        ttk.Entry(dlg, textvariable=name_var, width=40).grid(row=0, column=1, padx=5, pady=5)
+
+        ttk.Label(dlg, text="Price:").grid(row=1, column=0, sticky="e", padx=5, pady=5)
+        price_var = tk.StringVar()
+        ttk.Entry(dlg, textvariable=price_var, width=20).grid(row=1, column=1, padx=5, pady=5, sticky="w")
+
+        ttk.Label(dlg, text="Condition:").grid(row=2, column=0, sticky="e", padx=5, pady=5)
+        cond_var = tk.StringVar()
+        cond_combo = ttk.Combobox(dlg, textvariable=cond_var, values=["New", "Like New", "Good", "Fair", "Poor"], state="readonly", width=18)
+        cond_combo.grid(row=2, column=1, padx=5, pady=5, sticky="w")
+        cond_combo.set("Good")
+
+        # Category input
+        ttk.Label(dlg, text="Category:").grid(row=3, column=0, sticky="e", padx=5, pady=5)
+        cat_var = tk.StringVar()
+        cat_combo = ttk.Combobox(dlg, textvariable=cat_var,
+                                 values=["Electronics", "Books", "Clothing", "Furniture", "Sports", "Toys", "Other"],
+                                 state="readonly", width=18)
+        cat_combo.grid(row=3, column=1, padx=5, pady=5, sticky="w")
+        cat_combo.set("Other")
+
+        ttk.Label(dlg, text="Description:").grid(row=4, column=0, sticky="ne", padx=5, pady=5)
+        desc_text = tk.Text(dlg, width=40, height=6)
+        desc_text.grid(row=4, column=1, padx=5, pady=5)
+
+        ttk.Label(dlg, text="Image Path (optional):").grid(row=5, column=0, sticky="e", padx=5, pady=5)
+        image_var = tk.StringVar()
+        ttk.Entry(dlg, textvariable=image_var, width=40).grid(row=5, column=1, padx=5, pady=5)
+
+        def on_save():
+            name = name_var.get().strip()
+            price_s = price_var.get().strip()
+            condition = cond_var.get().strip()
+            category = cat_var.get().strip()
+            description = desc_text.get("1.0", "end").strip()
+            image = image_var.get().strip()
+            if image == "":
+                image = "images/default.png"
+
+            if not name:
+                messagebox.showwarning("Validation", "Name is required.")
+                return
+            try:
+                price = float(price_s) if price_s else 0.0
+            except ValueError:
+                messagebox.showwarning("Validation", "Price must be a number.")
+                return
+
+            try:
+                InventoryDatabase.create_new_item(name, description, condition, category, price, image)
+            except Exception as e:
+                messagebox.showerror("Database Error", f"Failed to add item: {e}")
+                return
+            finally:
+                dlg.destroy()
+                self.refresh_items()
+                # Get the HomePage frame and refresh it
+                home_page = self.controller.frames["HomePage"]
+                home_page.update_items()
+
+        btn_frame = ttk.Frame(dlg)
+        btn_frame.grid(row=6, column=0, columnspan=2, pady=10)
+        ttk.Button(btn_frame, text="Save", command=on_save).pack(side="left", padx=5)
+        ttk.Button(btn_frame, text="Cancel", command=dlg.destroy).pack(side="left", padx=5)

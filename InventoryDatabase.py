@@ -146,7 +146,7 @@ class InventoryDatabase:
             pass
     
     @staticmethod
-    def create_new_item(itemName, itemDescription, itemCondition, itemCategory, itemPrice):
+    def create_new_item(itemName, itemDescription, itemCondition, itemCategory, itemPrice, itemImage):
         ''' Creates a new item and adds it to the item list.
         Takes all item name, description, condition, category, and price as input. Generates a default itemID 
         and userID from the current user. Returns the created ItemInfo object.
@@ -162,10 +162,11 @@ class InventoryDatabase:
             itemPrice=itemPrice,
             itemStatus="Available",
             itemComments="",
-            itemImage=""
+            itemImage=itemImage 
         )
         InventoryDatabase.itemList.append(newItem)
         InventoryDatabase.curItemID += 1
+        InventoryDatabase.update_csv()
         return newItem
         
     @staticmethod

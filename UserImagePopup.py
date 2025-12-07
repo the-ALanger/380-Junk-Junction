@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
 
-class ImagePopup(tk.Toplevel):
+class UserImagePopup(tk.Toplevel):
     '''
     ImagePopup
     11/18/25
@@ -15,10 +15,19 @@ class ImagePopup(tk.Toplevel):
         self.title("Listing Description")
         
         # Display Larger Image
-        try: 
+        try:
             photo = tk.PhotoImage(file=image_path)
-        except tk.TclError:
-            photo = tk.PhotoImage(width=600, height=450)
+            # Resize image by subsampling (scale down by factor of 2 if too large)
+            if photo.width() > 300 or photo.height() > 2000:
+                scale_x = max(1, photo.width() // 300)
+                scale_y = max(1, photo.height() // 200)
+                scale = max(scale_x, scale_y)
+                photo = photo.subsample(scale, scale)
+        except tk.TclError as e:
+            print(f"Image load error for '{image_path}': {e}")
+            # Create a gray placeholder with text
+            photo = tk.PhotoImage(width=300, height=200)
+            photo.put("gray", to=(0, 0, 300, 200))
         
         img_label = ttk.Label(self, image=photo)
         img_label.image = photo  # keep reference
