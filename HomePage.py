@@ -46,6 +46,14 @@ class HomePage(tk.Frame):
                                       state="readonly", width=15)
         category_combo.pack(side="left", padx=5)
         category_combo.bind("<<ComboboxSelected>>", lambda e: self.update_items())
+
+        ttk.Label(filter_frame, text="Filter by Condition:").pack(side="left", padx=10)
+        self.condition_var = tk.StringVar(value="All")
+        condition_combo = ttk.Combobox(filter_frame, textvariable=self.condition_var,
+                           values=["All", "Like New", "Good", "Fair", "Poor"],
+                           state="readonly", width=12)
+        condition_combo.pack(side="left", padx=5)
+        condition_combo.bind("<<ComboboxSelected>>", lambda e: self.update_items())
         
         scroll_container = tk.Frame(self, bg="#2a6cc8")
         scroll_container.pack(fill="both", expand=True)
@@ -145,11 +153,15 @@ class HomePage(tk.Frame):
             child.destroy()
 
         selected_category = self.category_var.get()
+        selected_condition = getattr(self, "condition_var", tk.StringVar(value="All")).get()
         images = []
         for item in InventoryDatabase.itemList:
             if getattr(item, "itemStatus", "Available") == "Available":
                 # Filter by category
                 if selected_category != "All" and getattr(item, "itemCategory", "") != selected_category:
+                    continue
+                # Filter by condition
+                if selected_condition != "All" and getattr(item, "itemCondition", "") != selected_condition:
                     continue
                 images.append((
                     item.itemImage,

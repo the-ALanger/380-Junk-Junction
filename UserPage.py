@@ -153,7 +153,7 @@ class UserPage(tk.Frame):
 
         ttk.Label(dlg, text="Condition:").grid(row=2, column=0, sticky="e", padx=5, pady=5)
         cond_var = tk.StringVar()
-        cond_combo = ttk.Combobox(dlg, textvariable=cond_var, values=["New", "Like New", "Good", "Fair", "Poor"], state="readonly", width=18)
+        cond_combo = ttk.Combobox(dlg, textvariable=cond_var, values=["Like New", "Good", "Fair", "Poor"], state="readonly", width=18)
         cond_combo.grid(row=2, column=1, padx=5, pady=5, sticky="w")
         cond_combo.set("Good")
 
