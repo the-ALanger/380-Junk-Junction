@@ -36,7 +36,7 @@ class App(tk.Tk):
 
     def show_frame(self, page_name):
         sizes = {
-            "SignInPage": "230x130",
+            "SignInPage": "280x150",
             "HomePage": "800x600",
             "UserPage": "800x600",
             "CreateUserPage": "800x600"
