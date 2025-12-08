@@ -35,7 +35,7 @@ class HomePage(tk.Frame):
                   command=lambda: controller.show_frame("UserPage")).pack(side="bottom", pady=5)
         
         # Category filter frame
-        filter_frame = tk.Frame(self, bg="#791919")
+        filter_frame = tk.Frame(self, bg="#fafafb")
         filter_frame.pack(fill="x", padx=5, pady=5)
         
         ttk.Label(filter_frame, text="Filter by Category:").pack(side="left", padx=5)
@@ -66,7 +66,7 @@ class HomePage(tk.Frame):
 
         canvas.configure(yscrollcommand=scrollbar.set)
 
-        center_area = tk.Frame(canvas, bg="#fafafb")
+        center_area = tk.Frame(canvas, bg="#791919")
         canvas_window = canvas.create_window((0, 0), window=center_area, anchor="nw")
         
         for i in range(2):
