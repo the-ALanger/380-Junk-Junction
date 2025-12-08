@@ -68,7 +68,7 @@ class UserPage(tk.Frame):
             for i, item in enumerate(items):
                 self.User_post(center_area, item.itemImage, 
                               f"{item.itemName} - ${item.itemPrice}",
-                              item.itemDescription, row=i//2, col=i%2)
+                              item.itemDescription, row=i//2, col=i%2, item=item)
         else:
             no_items_label = tk.Label(center_area, text="No items found.", font=("Times New Roman", 12))
             no_items_label.grid(row=0, column=0, pady=20)
@@ -92,7 +92,7 @@ class UserPage(tk.Frame):
     # def on_item_click(self, item):
     #     messagebox.showinfo("Item", f"You clicked: {item.itemName}")
 
-    def User_post(self, parent, image_path, caption, description, row, col):   
+    def User_post(self, parent, image_path, caption, description, row, col, item=None):   
         frame = ttk.Frame(parent, padding=10)
         frame.grid(row=row, column=col, sticky="nsew", padx=5, pady=5)
         frame.columnconfigure(0, weight=1)
@@ -115,7 +115,7 @@ class UserPage(tk.Frame):
         img_label.image = photo  # keep reference
         img_label.grid(row=0, column=0, sticky="n", pady=(0,5))
 
-        img_label.bind("<Button>", lambda e, p = image_path, c = caption, d = description : UserImagePopup(self, p, c, d))
+        img_label.bind("<Button>", lambda e, p=image_path, c=caption, d=description, it=item: UserImagePopup(self, p, c, d, item=it))
 
         text_label = ttk.Label(frame, text=caption, font=("Times New Roman",10), wraplength=200)
         text_label.grid(row=1, column=0, sticky="s")

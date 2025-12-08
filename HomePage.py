@@ -76,6 +76,11 @@ class HomePage(tk.Frame):
         # initial population
         self.update_items()
 
+    def tkraise(self):
+        """Refresh items when the page is brought to front."""
+        super().tkraise()
+        self.update_items()
+
     def User_post(self, parent, image_path, caption, description, row, col):   
         frame = ttk.Frame(parent, padding=10)
         frame.grid(row=row, column=col, sticky="nsew", padx=5, pady=5)

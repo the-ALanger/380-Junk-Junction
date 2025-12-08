@@ -145,6 +145,20 @@ class InventoryDatabase:
         except ValueError:
             pass
     
+    def make_unlisted(item):
+        ''' Marks an item as unlisted by updating its status and moving it to the log list.
+        Takes an ItemInfo object as input, and returns nothing.
+        '''
+        for logItem in InventoryDatabase.logItemList:
+            if logItem.itemID == str(item.itemID):
+                return
+        item.itemStatus = "Unlisted"
+        InventoryDatabase.logItemList.append(item)
+        try:
+            InventoryDatabase.itemList.remove(item)
+        except ValueError:
+            pass
+
     @staticmethod
     def create_new_item(itemName, itemDescription, itemCondition, itemCategory, itemPrice, itemImage):
         ''' Creates a new item and adds it to the item list.

@@ -15,6 +15,9 @@ class SignInPage(tk.Frame):
     def __init__(self, parent, controller):
         super().__init__(parent)
         self.controller = controller
+        
+        # Set window size
+        controller.geometry("600x500")
 
         tk.Label(self, text="Email").grid(row=0, column=0)
         tk.Label(self, text="Password").grid(row=1, column=0)
