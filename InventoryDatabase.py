@@ -49,17 +49,7 @@ class InventoryDatabase:
             if item.itemID == str(itemID):
                 return item
         return None
-        
-    # Reading CSV file row by row
-    # with open('JJInventoryDatabase.csv', 'r') as file:
-    #     reader = csv.reader(file)  #For comma-separated values
-    #          #For tab-separated values, use: reader = csv.reader(file, delimiter='\t')
-
-    #     print("         Print CSV row by row:")  
-    #     for row in reader:
-    #         print(row)
-
-    # Function to read CSV into a list of dictionaries
+ 
     @staticmethod
     def read_item_dicts(filepath):              
         """
@@ -75,19 +65,6 @@ class InventoryDatabase:
             return []
         return data
 
-    # Using the 'read_item_dicts' function to read the CSV file (with consistent path)
-    csv_w_label = read_item_dicts('CSV/JJInventoryDatabase.csv')
-
-    # 2D and only has values (raw rows)
-    try:
-        with open('CSV/JJInventoryDatabase.csv', newline='') as f:
-            reader = csv.reader(f)
-            data_values_2D = list(reader)
-    except FileNotFoundError:
-        data_values_2D = []
-        
-    
-    
     
     @staticmethod
     def get_items_with_user_id(userID):
@@ -137,27 +114,30 @@ class InventoryDatabase:
         '''
         for logItem in InventoryDatabase.logItemList:
             if logItem.itemID == str(item.itemID):
-                return
+                return 0
         item.itemStatus = "Sold"
         InventoryDatabase.logItemList.append(item)
         try:
             InventoryDatabase.itemList.remove(item)
         except ValueError:
             pass
+        return 1
     
+    @staticmethod
     def make_unlisted(item):
         ''' Marks an item as unlisted by updating its status and moving it to the log list.
         Takes an ItemInfo object as input, and returns nothing.
         '''
         for logItem in InventoryDatabase.logItemList:
             if logItem.itemID == str(item.itemID):
-                return
+                return 0
         item.itemStatus = "Unlisted"
         InventoryDatabase.logItemList.append(item)
         try:
             InventoryDatabase.itemList.remove(item)
         except ValueError:
             pass
+        return 1
 
     @staticmethod
     def create_new_item(itemName, itemDescription, itemCondition, itemCategory, itemPrice, itemImage):
@@ -179,7 +159,6 @@ class InventoryDatabase:
             itemImage=itemImage 
         )
         InventoryDatabase.itemList.append(newItem)
-        InventoryDatabase.curItemID += 1
         InventoryDatabase.update_csv()
         return newItem
         

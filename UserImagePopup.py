@@ -17,6 +17,7 @@ class UserImagePopup(tk.Toplevel):
     '''
     def __init__(self, parent, image_path, caption, description, item=None):
         super().__init__(parent)
+        self.parent = parent
         self.title("Listing Description")
         self.item = item
 
@@ -88,6 +89,22 @@ class UserImagePopup(tk.Toplevel):
 
         close_button = tk.Button(self, text="Close", command=self.destroy)
         close_button.grid(row=6, column=1, sticky="se", padx=10, pady=10)
+
+        # If the current user is the seller, show Unlist / Sell buttons
+        try:
+            current_uid = getattr(UserCurrent.current_user, 'userID', None)
+        except Exception:
+            current_uid = None
+
+        if self.item and current_uid is not None and str(current_uid) == str(getattr(self.item, 'userID', None)):
+            btn_frame = ttk.Frame(self)
+            btn_frame.grid(row=6, column=0, sticky="w", padx=10, pady=10)
+
+            unlist_btn = tk.Button(btn_frame, text="Unlist", command=self.unlist_item, width=10)
+            unlist_btn.pack(side="left", padx=5)
+
+            sell_btn = tk.Button(btn_frame, text="Sell", command=self.sell_item, width=10)
+            sell_btn.pack(side="left", padx=5)
 
         # load comment history into display
         self.load_comments()
