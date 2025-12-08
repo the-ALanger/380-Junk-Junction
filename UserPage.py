@@ -55,7 +55,7 @@ class UserPage(tk.Frame):
 
         canvas.configure(yscrollcommand=scrollbar.set)
 
-        center_area = tk.Frame(canvas, bg="#fafafb")
+        center_area = tk.Frame(canvas, bg="#791919")
         canvas_window = canvas.create_window((0, 0), window=center_area, anchor="nw")
         
         for i in range(2):
