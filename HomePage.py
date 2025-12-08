@@ -109,13 +109,18 @@ class HomePage(tk.Frame):
         img_label.bind("<Button>", lambda e, p=image_path, c=caption, d=description, it=item: HomeImagePopup(self, p, c, d, item=it))
 
         # Item name
-        text_label = ttk.Label(frame, text=caption, font=("Times New Roman",10), wraplength=200)
+        text_label = ttk.Label(frame, text=caption, font=("Times New Roman",15), wraplength=200)
         text_label.grid(row=1, column=0, sticky="s")
+
+        # Item condition
+        condition_text = f"{item.itemCondition}" if item else "N/A"
+        condition_label = ttk.Label(frame, text=condition_text, font=("Times New Roman", 9), wraplength=200)
+        condition_label.grid(row=2, column=0, sticky="s")
 
         # Price in larger text
         price_text = f"${item.itemPrice}" if item else "N/A"
         price_label = ttk.Label(frame, text=price_text, font=("Times New Roman", 14, "bold"), wraplength=200)
-        price_label.grid(row=2, column=0, sticky="s")
+        price_label.grid(row=3, column=0, sticky="s")
 
         # Seller name
         seller_name = "Unknown"
@@ -123,7 +128,7 @@ class HomePage(tk.Frame):
             seller = UserDatabase.get_user_with_id(item.userID)
             seller_name = seller.name if seller else "Unknown"
         seller_label = ttk.Label(frame, text=f"Seller: {seller_name}", font=("Times New Roman", 9), wraplength=200)
-        seller_label.grid(row=3, column=0, sticky="s")
+        seller_label.grid(row=4, column=0, sticky="s")
 
     def _update_scroll_region(self, event=None):
         """Keep the canvas scroll region and width in sync with center_area."""
