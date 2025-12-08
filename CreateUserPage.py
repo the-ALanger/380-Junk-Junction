@@ -18,9 +18,9 @@ class CreateUserPage(tk.Frame):
         self.controller = controller
         
         #Labels
-        tk.Label(self, text="Name").grid(row=0, column=0)
-        tk.Label(self, text="Email").grid(row=1, column=0)
-        tk.Label(self, text="Password").grid(row=2, column=0)
+        tk.Label(self, text="Name:").grid(row=0, column=0)
+        tk.Label(self, text="Email:").grid(row=1, column=0)
+        tk.Label(self, text="Password:").grid(row=2, column=0)
         
         #Entries
         self.name_entry = tk.Entry(self)
