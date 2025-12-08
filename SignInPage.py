@@ -17,7 +17,7 @@ class SignInPage(tk.Frame):
         self.controller = controller
         
         # Set window size
-        controller.geometry("600x500")
+        controller.geometry("800x700")
 
         tk.Label(self, text="Email").grid(row=0, column=0)
         tk.Label(self, text="Password").grid(row=1, column=0)

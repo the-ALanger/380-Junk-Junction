@@ -7,3 +7,5 @@ itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,item
 1006,77778,Tennis Racket,A tennis racket suitable for intermediate players.,Good,Sports,75.00,Available,ItemComments/comments1006.csv,images/tennis_racket.png
 1007,77778,Coffee Table,A small coffee table with a glass top.,Like New,Furniture,60.00,Available,ItemComments/comments1007.csv,images/coffeetable.png
 1008,77780,orange,Half eaten orange,Fair,Other,4.0,Available,ItemComments/comments1008.csv,images/default.png
+1009,77783,Funko,"I found this in my roommates sock drawer. He's not comming back, and I think this thing is haunted.",Poor,Toys,3.0,Available,ItemComments/comments1009.csv,images/MyHeroFunko.png
+1010,77784,DoorLock,"I got this from my dorm. I got locked out and took off the lock, and I don't know how to put it back. Selling it away so there is no trace.",Good,Other,16.0,Available,ItemComments/comments1010.csv,images/default.png
