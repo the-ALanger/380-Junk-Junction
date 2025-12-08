@@ -175,7 +175,7 @@ class InventoryDatabase:
             itemCategory=itemCategory,
             itemPrice=itemPrice,
             itemStatus="Available",
-            itemComments="",
+            itemComments="ItemComments/comments" + new_id.zfill(4) + ".csv",
             itemImage=itemImage 
         )
         InventoryDatabase.itemList.append(newItem)

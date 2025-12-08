@@ -1,2 +1,2 @@
 itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,itemStatus,itemComments,itemImage
-4444,00000,Pikachu,This is a test item for demonstration purposes.,New,Miscellaneous,10.00,Sold,ItemComments/0001.csv,images/pikachu.png
+4444,00000,Pikachu,This is a test item for demonstration purposes.,New,Miscellaneous,10.00,Sold,ItemComments/comments4444.csv,images/pikachu.png

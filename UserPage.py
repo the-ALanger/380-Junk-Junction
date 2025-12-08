@@ -67,7 +67,7 @@ class UserPage(tk.Frame):
         if items:
             for i, item in enumerate(items):
                 self.User_post(center_area, item.itemImage, 
-                              f"{item.itemName} - ${item.itemPrice}",
+                              f"{item.itemName}",
                               item.itemDescription, row=i//2, col=i%2, item=item)
         else:
             no_items_label = tk.Label(center_area, text="No items found.", font=("Times New Roman", 12))
@@ -172,6 +172,8 @@ class UserPage(tk.Frame):
             image = image_var.get().strip()
             if image == "":
                 image = "images/default.png"
+            elif not image.startswith("images/"):
+                image = "images/" + image
 
             if not name:
                 messagebox.showwarning("Validation", "Name is required.")
