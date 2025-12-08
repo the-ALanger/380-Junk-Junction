@@ -1,9 +1,9 @@
 itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,itemStatus,itemComments,itemImage
 1001,69420,Used Bicycle,A well-maintained used bicycle.,Good,Sports,150.00,Available,ItemComments/comments1001.csv,images/bike.png
-1002,77777,Laptop,A slightly used laptop with 8GB RAM.,Very Good,Electronics,450.00,Available,ItemComments/comments1002.csv,images/laptop.png
+1002,77777,Laptop,A slightly used laptop with 8GB RAM.,Fair,Electronics,450.00,Available,ItemComments/comments1002.csv,images/laptop.png
 1003,77777,Desk Chair,Ergonomic desk chair in excellent condition.,Like New,Furniture,85.00,Available,ItemComments/comments1003.csv,images/desk_chair.png
 1004,77778,Smartphone,A smartphone with minor scratches on the screen.,Good,Electronics,300.00,Available,ItemComments/comments1004.csv,images/smartphone.png
-1005,77778,Bookshelf,A wooden bookshelf with five shelves.,Very Good,Furniture,120.00,Available,ItemComments/comments1005.csv,images/bookshelf.png
+1005,77778,Bookshelf,A wooden bookshelf with five shelves.,Poor,Furniture,120.00,Available,ItemComments/comments1005.csv,images/bookshelf.png
 1006,77778,Tennis Racket,A tennis racket suitable for intermediate players.,Good,Sports,75.00,Available,ItemComments/comments1006.csv,images/tennis_racket.png
 1007,77778,Coffee Table,A small coffee table with a glass top.,Like New,Furniture,60.00,Available,ItemComments/comments1007.csv,images/coffeetable.png
 1008,77780,orange,Half eaten orange,Fair,Other,4.00,Available,ItemComments/comments1008.csv,images/default.png

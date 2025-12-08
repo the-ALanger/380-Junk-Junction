@@ -117,8 +117,19 @@ class UserPage(tk.Frame):
 
         img_label.bind("<Button>", lambda e, p=image_path, c=caption, d=description, it=item: UserImagePopup(self, p, c, d, item=it))
 
-        text_label = ttk.Label(frame, text=caption, font=("Times New Roman",10), wraplength=200)
+        # Item name
+        text_label = ttk.Label(frame, text=caption, font=("Times New Roman",15), wraplength=200)
         text_label.grid(row=1, column=0, sticky="s")
+
+        # Item condition
+        condition_text = f"{item.itemCondition}" if item else "N/A"
+        condition_label = ttk.Label(frame, text=condition_text, font=("Times New Roman", 9), wraplength=200)
+        condition_label.grid(row=2, column=0, sticky="s")
+
+        # Price in larger text
+        price_text = f"${item.itemPrice}" if item else "N/A"
+        price_label = ttk.Label(frame, text=price_text, font=("Times New Roman", 14, "bold"), wraplength=200)
+        price_label.grid(row=3, column=0, sticky="s")
 
     def prompt_new_item(self):
         """Open a dialog to collect new item details and add to InventoryDatabase."""
