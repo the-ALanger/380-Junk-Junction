@@ -185,6 +185,8 @@ class UserPage(tk.Frame):
                 image = "images/default.png"
             elif not image.startswith("images/"):
                 image = "images/" + image
+            if not image.endswith(".png"):
+                image += ".png"
 
             if not name:
                 messagebox.showwarning("Validation", "Name is required.")

@@ -66,22 +66,27 @@ class HomeImagePopup(tk.Toplevel):
         price_label = ttk.Label(self, text=price_text, font=("Times New Roman", 14, "bold"), wraplength=400)
         price_label.grid(row=2, column=0, sticky="w", padx=10, pady=(2,2))
 
+        # Item condition (displayed below the price)
+        condition_text = f"{getattr(self.item, 'itemCondition', 'N/A')}" if self.item else "N/A"
+        condition_label = ttk.Label(self, text=condition_text, font=("Times New Roman", 10), wraplength=400)
+        condition_label.grid(row=3, column=0, sticky="w", padx=10)
+
         # Seller name
         seller_name = "Unknown"
         if self.item:
             seller = UserDatabase.get_user_with_id(getattr(self.item, "userID", None))
             seller_name = getattr(seller, "name", "Unknown")
         seller_label = ttk.Label(self, text=f"Seller: {seller_name}", font=("Times New Roman", 10), wraplength=400)
-        seller_label.grid(row=3, column=0, sticky="w", padx=10)
+        seller_label.grid(row=4, column=0, sticky="w", padx=10)
 
         # remember seller name for comment rendering
         self.seller_name = seller_name
 
         desc_label = tk.Label(self, text=description, font=("Times New Roman",12), wraplength=400, justify="left")
-        desc_label.grid(row=4, column=0, pady=10, padx=10)
+        desc_label.grid(row=5, column=0, pady=10, padx=10)
 
         close_button = tk.Button(self, text="Close", command=self.destroy)
-        close_button.grid(row=5, column=1, sticky="se", padx=10, pady=10)
+        close_button.grid(row=6, column=1, sticky="se", padx=10, pady=10)
 
         # load comment history into display
         self.load_comments()
