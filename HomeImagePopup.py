@@ -78,15 +78,19 @@ class HomeImagePopup(tk.Toplevel):
             seller_name = getattr(seller, "name", "Unknown")
         seller_label = ttk.Label(self, text=f"Seller: {seller_name}", font=("Times New Roman", 10), wraplength=400)
         seller_label.grid(row=4, column=0, sticky="w", padx=10)
+        
+        # email of the seller
+        email_label = ttk.Label(self, text=f"Email: {getattr(seller, 'email', 'N/A')}", font=("Times New Roman", 10), wraplength=400)
+        email_label.grid(row=5, column=0, sticky="w", padx=10)
 
         # remember seller name for comment rendering
         self.seller_name = seller_name
 
         desc_label = tk.Label(self, text=description, font=("Times New Roman",12), wraplength=400, justify="left")
-        desc_label.grid(row=5, column=0, pady=10, padx=10)
+        desc_label.grid(row=6, column=0, pady=10, padx=10)
 
         close_button = tk.Button(self, text="Close", command=self.destroy)
-        close_button.grid(row=6, column=1, sticky="se", padx=10, pady=10)
+        close_button.grid(row=7, column=1, sticky="se", padx=10, pady=10)
 
         # load comment history into display
         self.load_comments()
