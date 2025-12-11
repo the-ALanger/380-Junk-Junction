@@ -15,3 +15,4 @@ itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,item
 1014,77782,Ripped Jeans 34x32,34x32 Ripped Jeans that have been worn about 300 times,Poor,Clothing,15.00,Available,ItemComments/comments1014.csv,images/rippedJeans.png
 1015,77780,Dog Toy,My dog didn't like this toy so one of you should have it,Good,Toys,15.00,Available,ItemComments/comments1015.csv,images/dogToy.png
 1016,77783,Python Textbook,Python textbook I don't need anymore. Has some notes in the margins but not a lot,Like New,Books,60.00,Available,ItemComments/comments1016.csv,images/pythonTextbook.png
+1017,69420,SE,yes $1000 please,Good,Other,1000.0,Available,ItemComments/comments1017.csv,images/SETextbook.png
