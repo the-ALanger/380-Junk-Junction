@@ -27,7 +27,8 @@ class UpdateCSVs:
                 item.itemPrice,
                 item.itemStatus,
                 item.itemComments,
-                item.itemImage
+                item.itemImage,
+                item.itemBuyers
             ])
         with open(filename, 'w', newline='') as csvfile:
             writer = csv.writer(csvfile)

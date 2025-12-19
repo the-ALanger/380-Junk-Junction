@@ -1,4 +1,5 @@
 import csv
+import os
 from ItemInfo import ItemInfo
 from UpdateCSVs import UpdateCSVs
 from UserCurrent import UserCurrent
@@ -31,7 +32,8 @@ class InventoryDatabase:
                 itemPrice=row[6],
                 itemStatus=row[7],
                 itemComments=row[8],
-                itemImage=row[9]
+                itemImage=row[9],
+                itemBuyers=row[10]
             )
             itemList.append(item)
     if itemList:
@@ -103,7 +105,8 @@ class InventoryDatabase:
                 itemPrice=row[6],
                 itemStatus=row[7],
                 itemComments=row[8],
-                itemImage=row[9]
+                itemImage=row[9],
+                itemBuyers=row[10]
             )
             logItemList.append(logItem)
             
@@ -116,6 +119,22 @@ class InventoryDatabase:
             if logItem.itemID == str(item.itemID):
                 return 0
         item.itemStatus = "Sold"
+        # truncate comments and buyers files
+        try:
+            comments_path = getattr(item, 'itemComments', None) or f"ItemComments/comments{getattr(item, 'itemID', '0000')}.csv"
+            comments_path = os.path.normpath(comments_path)
+            if os.path.exists(comments_path):
+                open(comments_path, 'w', encoding='utf-8').close()
+        except Exception:
+            pass
+        try:
+            buyers_path = f"ItemBuyers/buyers{getattr(item, 'itemID', '0000')}.csv"
+            buyers_path = os.path.normpath(buyers_path)
+            if os.path.exists(buyers_path):
+                open(buyers_path, 'w', encoding='utf-8').close()
+        except Exception:
+            pass
+        
         InventoryDatabase.logItemList.append(item)
         try:
             InventoryDatabase.itemList.remove(item)
@@ -132,6 +151,22 @@ class InventoryDatabase:
             if logItem.itemID == str(item.itemID):
                 return 0
         item.itemStatus = "Unlisted"
+        # truncate comments and buyers files
+        try:
+            comments_path = getattr(item, 'itemComments', None) or f"ItemComments/comments{getattr(item, 'itemID', '0000')}.csv"
+            comments_path = os.path.normpath(comments_path)
+            if os.path.exists(comments_path):
+                open(comments_path, 'w', encoding='utf-8').close()
+        except Exception:
+            pass
+        try:
+            buyers_path = f"ItemBuyers/buyers{getattr(item, 'itemID', '0000')}.csv"
+            buyers_path = os.path.normpath(buyers_path)
+            if os.path.exists(buyers_path):
+                open(buyers_path, 'w', encoding='utf-8').close()
+        except Exception:
+            pass
+        
         InventoryDatabase.logItemList.append(item)
         try:
             InventoryDatabase.itemList.remove(item)
@@ -156,7 +191,8 @@ class InventoryDatabase:
             itemPrice=itemPrice,
             itemStatus="Available",
             itemComments="ItemComments/comments" + new_id.zfill(4) + ".csv",
-            itemImage=itemImage 
+            itemImage=itemImage,
+            itemBuyers="ItemBuyers/buyers" + new_id.zfill(4) + ".csv"
         )
         InventoryDatabase.itemList.append(newItem)
         InventoryDatabase.update_csv()

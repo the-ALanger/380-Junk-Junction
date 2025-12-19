@@ -1,3 +1,2 @@
-itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,itemStatus,itemComments,itemImage
-4444,00000,Pikachu,This is a test item for demonstration purposes.,New,Miscellaneous,10.00,Sold,ItemComments/comments4444.csv,images/pikachu.png
-1017,77785,SE Textbook,my book i want to sell,Like New,Books,100.0,Sold,ItemComments/comments1017.csv,images/SETextbook.png
+itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,itemStatus,itemComments,itemImage,itemBuyers
+4444,00000,Pikachu,This is a test item for demonstration purposes.,New,Miscellaneous,10.00,Sold,ItemComments/comments4444.csv,images/pikachu.png,ItemBuyers/buyers4444.csv

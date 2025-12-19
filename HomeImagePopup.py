@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
 import csv
 import os
 from UserCurrent import UserCurrent
@@ -78,19 +78,27 @@ class HomeImagePopup(tk.Toplevel):
             seller_name = getattr(seller, "name", "Unknown")
         seller_label = ttk.Label(self, text=f"Seller: {seller_name}", font=("Times New Roman", 10), wraplength=400)
         seller_label.grid(row=4, column=0, sticky="w", padx=10)
-        
-        # email of the seller
-        email_label = ttk.Label(self, text=f"Email: {getattr(seller, 'email', 'N/A')}", font=("Times New Roman", 10), wraplength=400)
-        email_label.grid(row=5, column=0, sticky="w", padx=10)
 
         # remember seller name for comment rendering
         self.seller_name = seller_name
 
+        # Description
         desc_label = tk.Label(self, text=description, font=("Times New Roman",12), wraplength=400, justify="left")
         desc_label.grid(row=6, column=0, pady=10, padx=10)
 
-        close_button = tk.Button(self, text="Close", command=self.destroy)
-        close_button.grid(row=7, column=1, sticky="se", padx=10, pady=10)
+        # Buy button
+        left_btn_frame = ttk.Frame(self)
+        left_btn_frame.grid(row=7, column=0, sticky="sw", padx=10, pady=10)
+
+        buy_button = tk.Button(left_btn_frame, text="Buy", command=self.buy_item, width=10)
+        buy_button.pack(side="left")
+
+        # Close 
+        right_btn_frame = ttk.Frame(self)
+        right_btn_frame.grid(row=7, column=1, sticky="se", padx=10, pady=10)
+
+        close_button = tk.Button(right_btn_frame, text="Close", command=self.destroy, width=10)
+        close_button.pack(side="right")
 
         # load comment history into display
         self.load_comments()
@@ -153,3 +161,39 @@ class HomeImagePopup(tk.Toplevel):
                     self.comment_display.insert(tk.END, f": {comment}\n\n")
 
         self.comment_display.config(state="disabled")
+
+    def buy_item(self):
+        """Append the current user's email to the buyers CSV for this item."""
+        user = getattr(UserCurrent, 'current_user', None)
+        user_email = getattr(user, 'email', None)
+        user_name = getattr(user, 'name', 'Anonymous')
+        buyers_dir = os.path.normpath("ItemBuyers")
+        buyers_path = os.path.normpath(f"{buyers_dir}/buyers{getattr(self.item, 'itemID', '0000')}.csv")
+
+        try:
+            os.makedirs(buyers_dir, exist_ok=True)
+
+            # Read existing emails (if any) to avoid duplicates (case-insensitive)
+            existing = set()
+            if os.path.exists(buyers_path):
+                try:
+                    with open(buyers_path, 'r', encoding='utf-8') as f:
+                        reader = csv.reader(f)
+                        for row in reader:
+                            if row:
+                                existing.add(row[1].strip().lower())
+                except Exception:
+                    # if file can't be read, treat as empty and continue
+                    existing = set()
+
+            if user_email.strip().lower() in existing:
+                messagebox.showinfo("Already Recorded", "Your email is already listed as a buyer for this item.")
+                return
+
+            with open(buyers_path, 'a', newline='', encoding='utf-8') as f:
+                writer = csv.writer(f)
+                writer.writerow([user_name, user_email])
+
+            messagebox.showinfo("Recorded", "Your email has been added to the buyers list.")
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to record buyer: {e}")

@@ -25,7 +25,7 @@ class UserImagePopup(tk.Toplevel):
 
         try:
             photo = tk.PhotoImage(file=image_path)
-            # Resize image by subsampling (scale down by factor if too large)
+            # Resize image by subsampling
             if photo.width() > 350 or photo.height() > 250:
                 scale_x = max(1, photo.width() // 350)
                 scale_y = max(1, photo.height() // 250)
@@ -41,7 +41,7 @@ class UserImagePopup(tk.Toplevel):
         img_label.image = photo  # keep reference
         img_label.grid(row=0, column=0, sticky="n", pady=(0,5))
 
-        # comment section (display + entry) on right of image
+        # comment section 
         comment_frame = ttk.Frame(self)
         comment_frame.grid(row=0, column=1, sticky="n", padx=20, pady=10)
         tk.Label(comment_frame, text="Comments", font=("Times New Roman",12)).grid(row=0, column=0, sticky="w")
@@ -61,16 +61,16 @@ class UserImagePopup(tk.Toplevel):
                                   command=lambda: self.submit_comment(self.comment_entry))
         submit_button.grid(row=3, column=0, sticky="e")
 
-        # Caption, price and seller on the left under the image (same formatting)
+        # Caption
         caption_label = ttk.Label(self, text=caption, font=("Times New Roman",12), wraplength=400)
         caption_label.grid(row=1, column=0, sticky="w", padx=10)
 
-        # Price (larger)
+        # Price
         price_text = f"${getattr(self.item, 'itemPrice', 'N/A')}" if self.item else "N/A"
         price_label = ttk.Label(self, text=price_text, font=("Times New Roman", 14, "bold"), wraplength=400)
         price_label.grid(row=2, column=0, sticky="w", padx=10, pady=(2,2))
 
-        # Item condition (displayed below the price)
+        # Item condition
         condition_text = f"{getattr(self.item, 'itemCondition', 'N/A')}" if self.item else "N/A"
         condition_label = ttk.Label(self, text=condition_text, font=("Times New Roman", 10), wraplength=400)
         condition_label.grid(row=3, column=0, sticky="w", padx=10)
@@ -87,24 +87,26 @@ class UserImagePopup(tk.Toplevel):
         desc_label = tk.Label(self, text=description, font=("Times New Roman",12), wraplength=400, justify="left")
         desc_label.grid(row=5, column=0, pady=10, padx=10)
 
-        close_button = tk.Button(self, text="Close", command=self.destroy)
-        close_button.grid(row=6, column=1, sticky="se", padx=10, pady=10)
+        # right-side frame for Show Buyers (left) and Close (right)
+        right_btn_frame = ttk.Frame(self)
+        right_btn_frame.grid(row=6, column=1, sticky="se", padx=10, pady=10)
 
-        # If the current user is the seller, show Unlist / Sell buttons
-        try:
-            current_uid = getattr(UserCurrent.current_user, 'userID', None)
-        except Exception:
-            current_uid = None
+        # Close button (pack first so Show Buyers appears to its left)
+        close_button = tk.Button(right_btn_frame, text="Close", command=self.destroy, width=10)
+        close_button.pack(side="right")
 
-        if self.item and current_uid is not None and str(current_uid) == str(getattr(self.item, 'userID', None)):
-            btn_frame = ttk.Frame(self)
-            btn_frame.grid(row=6, column=0, sticky="w", padx=10, pady=10)
+        show_buyers_btn = tk.Button(right_btn_frame, text="Show Buyers", command=self.show_buyers, width=12)
+        show_buyers_btn.pack(side="right", padx=5)
 
-            unlist_btn = tk.Button(btn_frame, text="Unlist", command=self.unlist_item, width=10)
-            unlist_btn.pack(side="left", padx=5)
+        # show Unlist / Sell buttons
+        btn_frame = ttk.Frame(self)
+        btn_frame.grid(row=6, column=0, sticky="w", padx=10, pady=10)
 
-            sell_btn = tk.Button(btn_frame, text="Sell", command=self.sell_item, width=10)
-            sell_btn.pack(side="left", padx=5)
+        unlist_btn = tk.Button(btn_frame, text="Unlist", command=self.unlist_item, width=10)
+        unlist_btn.pack(side="left", padx=5)
+
+        sell_btn = tk.Button(btn_frame, text="Sell", command=self.sell_item, width=10)
+        sell_btn.pack(side="left", padx=5)
 
         # load comment history into display
         self.load_comments()
@@ -204,3 +206,38 @@ class UserImagePopup(tk.Toplevel):
                     pass
             except Exception as e:
                 messagebox.showerror("Error", f"Failed to sell item: {e}")
+
+    def show_buyers(self):
+        """Display buyer emails from the buyers CSV, one per row."""
+
+        buyers_dir = os.path.normpath("ItemBuyers")
+        buyers_path = os.path.normpath(f"{buyers_dir}/buyers{getattr(self.item, 'itemID', '0000')}.csv")
+
+        buyers = []
+        if os.path.exists(buyers_path):
+            try:
+                with open(buyers_path, 'r', encoding='utf-8') as f:
+                    reader = csv.reader(f)
+                    for row in reader:
+                        if row:
+                            buyers.append(row[0].strip())
+            except Exception as e:
+                messagebox.showerror("Error", f"Failed to read buyers file: {e}")
+                return
+
+        top = tk.Toplevel(self)
+        top.title("Buyers")
+        top.transient(self)
+        top.grab_set()
+
+        if not buyers:
+            ttk.Label(top, text="No buyers recorded.").pack(padx=12, pady=12)
+            ttk.Button(top, text="Close", command=top.destroy).pack(pady=6)
+            return
+
+        listbox = tk.Listbox(top, width=50, height=min(20, max(3, len(buyers))))
+        for b in buyers:
+            listbox.insert(tk.END, b)
+        listbox.pack(padx=12, pady=12)
+
+        ttk.Button(top, text="Close", command=top.destroy).pack(pady=6)

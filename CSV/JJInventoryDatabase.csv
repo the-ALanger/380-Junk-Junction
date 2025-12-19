@@ -1,18 +1,18 @@
-itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,itemStatus,itemComments,itemImage
-1001,69420,Used Bicycle,A well-maintained used bicycle.,Good,Sports,150.00,Available,ItemComments/comments1001.csv,images/bike.png
-1002,77777,Laptop,A slightly used laptop with 8GB RAM.,Fair,Electronics,450.00,Available,ItemComments/comments1002.csv,images/laptop.png
-1003,77777,Desk Chair,Ergonomic desk chair in excellent condition.,Like New,Furniture,85.00,Available,ItemComments/comments1003.csv,images/desk_chair.png
-1004,77778,Smartphone,A smartphone with minor scratches on the screen.,Good,Electronics,300.00,Available,ItemComments/comments1004.csv,images/smartphone.png
-1005,77778,Bookshelf,A wooden bookshelf with five shelves.,Poor,Furniture,120.00,Available,ItemComments/comments1005.csv,images/bookshelf.png
-1006,77778,Tennis Racket,A tennis racket suitable for intermediate players.,Good,Sports,75.00,Available,ItemComments/comments1006.csv,images/tennis_racket.png
-1007,77778,Coffee Table,A small coffee table with a glass top.,Like New,Furniture,60.00,Available,ItemComments/comments1007.csv,images/coffeetable.png
-1008,77780,orange,Half eaten orange,Fair,Other,4.00,Available,ItemComments/comments1008.csv,images/orange.png
-1009,77783,Funko,"I found this in my roommates sock drawer. He's not comming back, and I think this thing is haunted.",Poor,Toys,3.00,Available,ItemComments/comments1009.csv,images/MyHeroFunko.png
-1010,77784,DoorLock,"I got this from my dorm. I got locked out and took off the lock, and I don't know how to put it back. Selling it away so there is no trace.",Good,Other,16.00,Available,ItemComments/comments1010.csv,images/doorLock.png
-1011,77779,3D Printer (2025),A brand new printer I never used,Like New,Electronics,2000.0,Available,ItemComments/comments1011.csv,images/3dPrinter.png
-1012,77779,Calculus 2 Textbook,I used this book all throughout the semester and has great notes in it,Fair,Books,50.00,Available,ItemComments/comments1012.csv,images/calc2.png
-1013,77784,FNAF Shirt,FIve Nights at Freddys shirt from 2015 - Size: L,Fair,Clothing,10.00,Available,ItemComments/comments1013.csv,images/fnafShirt.png
-1014,77782,Ripped Jeans 34x32,34x32 Ripped Jeans that have been worn about 300 times,Poor,Clothing,15.00,Available,ItemComments/comments1014.csv,images/rippedJeans.png
-1015,77780,Dog Toy,My dog didn't like this toy so one of you should have it,Good,Toys,15.00,Available,ItemComments/comments1015.csv,images/dogToy.png
-1016,77783,Python Textbook,Python textbook I don't need anymore. Has some notes in the margins but not a lot,Like New,Books,60.00,Available,ItemComments/comments1016.csv,images/pythonTextbook.png
-1017,69420,SE,yes $1000 please,Good,Other,1000.0,Available,ItemComments/comments1017.csv,images/SETextbook.png
+itemID,userID,itemName,itemDescription,itemCondition,itemCategory,itemPrice,itemStatus,itemComments,itemImage,itemBuyers
+1001,69420,Used Bicycle,A well-maintained used bicycle.,Good,Sports,150.00,Available,ItemComments/comments1001.csv,images/bike.png,ItemBuyers/buyers1001.csv
+1002,77777,Laptop,A slightly used laptop with 8GB RAM.,Fair,Electronics,450.00,Available,ItemComments/comments1002.csv,images/laptop.png,ItemBuyers/buyers1002.csv
+1003,77777,Desk Chair,Ergonomic desk chair in excellent condition.,Like New,Furniture,85.00,Available,ItemComments/comments1003.csv,images/desk_chair.png,ItemBuyers/buyers1003.csv
+1004,77778,Smartphone,A smartphone with minor scratches on the screen.,Good,Electronics,300.00,Available,ItemComments/comments1004.csv,images/smartphone.png,ItemBuyers/buyers1004.csv
+1005,77778,Bookshelf,A wooden bookshelf with five shelves.,Poor,Furniture,120.00,Available,ItemComments/comments1005.csv,images/bookshelf.png,ItemBuyers/buyers1005.csv
+1006,77778,Tennis Racket,A tennis racket suitable for intermediate players.,Good,Sports,75.00,Available,ItemComments/comments1006.csv,images/tennis_racket.png,ItemBuyers/buyers1006.csv
+1007,77778,Coffee Table,A small coffee table with a glass top.,Like New,Furniture,60.00,Available,ItemComments/comments1007.csv,images/coffeetable.png,ItemBuyers/buyers1007.csv
+1008,77780,orange,Half eaten orange,Fair,Other,4.00,Available,ItemComments/comments1008.csv,images/orange.png,ItemBuyers/buyers1008.csv
+1009,77783,Funko,"I found this in my roommates sock drawer. He's not comming back, and I think this thing is haunted.",Poor,Toys,3.00,Available,ItemComments/comments1009.csv,images/MyHeroFunko.png,ItemBuyers/buyers1009.csv
+1010,77784,DoorLock,"I got this from my dorm. I got locked out and took off the lock, and I don't know how to put it back. Selling it away so there is no trace.",Good,Other,16.00,Available,ItemComments/comments1010.csv,images/doorLock.png,ItemBuyers/buyers1010.csv
+1011,77779,3D Printer (2025),A brand new printer I never used,Like New,Electronics,2000.0,Available,ItemComments/comments1011.csv,images/3dPrinter.png,ItemBuyers/buyers1011.csv
+1012,77779,Calculus 2 Textbook,I used this book all throughout the semester and has great notes in it,Fair,Books,50.00,Available,ItemComments/comments1012.csv,images/calc2.png,ItemBuyers/buyers1012.csv
+1013,77784,FNAF Shirt,FIve Nights at Freddys shirt from 2015 - Size: L,Fair,Clothing,10.00,Available,ItemComments/comments1013.csv,images/fnafShirt.png,ItemBuyers/buyers1013.csv
+1014,77782,Ripped Jeans 34x32,34x32 Ripped Jeans that have been worn about 300 times,Poor,Clothing,15.00,Available,ItemComments/comments1014.csv,images/rippedJeans.png,ItemBuyers/buyers1014.csv
+1015,77780,Dog Toy,My dog didn't like this toy so one of you should have it,Good,Toys,15.00,Available,ItemComments/comments1015.csv,images/dogToy.png,ItemBuyers/buyers1015.csv
+1016,77783,Python Textbook,Python textbook I don't need anymore. Has some notes in the margins but not a lot,Like New,Books,60.00,Available,ItemComments/comments1016.csv,images/pythonTextbook.png,ItemBuyers/buyers1016.csv
+1017,69420,SE,yes $1000 please,Good,Other,1000.0,Available,ItemComments/comments1017.csv,images/SETextbook.png,ItemBuyers/buyers1017.csv
