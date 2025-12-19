@@ -153,22 +153,22 @@ class HomePage(tk.Frame):
             child.destroy()
 
         selected_category = self.category_var.get()
-        selected_condition = getattr(self, "condition_var", tk.StringVar(value="All")).get()
+        selected_condition = self.condition_var.get()
+
         images = []
         for item in InventoryDatabase.itemList:
-            if getattr(item, "itemStatus", "Available") == "Available":
-                # Filter by category
-                if selected_category != "All" and getattr(item, "itemCategory", "") != selected_category:
-                    continue
-                # Filter by condition
-                if selected_condition != "All" and getattr(item, "itemCondition", "") != selected_condition:
-                    continue
-                images.append((
-                    item.itemImage,
-                    f"{item.itemName}",
-                    item.itemDescription,
-                    item
-                ))
+                # Filter by category    vvvvvvvv
+            if selected_category != "All" and getattr(item, "itemCategory", "") != selected_category:
+                continue
+                # Filter by condition   vvvvvvvv
+            if selected_condition != "All" and getattr(item, "itemCondition", "") != selected_condition:
+                continue
+            images.append((
+                item.itemImage,
+                f"{item.itemName}",
+                f"{item.itemDescription}",
+                item
+            ))
 
         if images:
             for i, (path, caption, description, item) in enumerate(images):
