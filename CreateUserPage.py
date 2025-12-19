@@ -57,7 +57,8 @@ class CreateUserPage(tk.Frame):
 
     @staticmethod
     def create_acc_data_to_csv(name_entry, email_entry, password_entry):
-        '''Collects data from entry fields and creates a new account.'''
+        '''Collects data from entry fields and creates a new account.
+            Returns True if account creation is successful, else False.'''
         name = name_entry.get()
         email = email_entry.get()
         password = password_entry.get()
@@ -72,6 +73,8 @@ class CreateUserPage(tk.Frame):
             if curUser:
                 errorMessage = "Input Error", "User already exists. Please use a different email."
                 noError = False
+
+            # this is visual check, but doesn't check the actual validity of the email            
             elif not email.endswith("@my.csun.edu"):
                 errorMessage = "Input Error", "Email must be a CSUN email."
                 noError = False
