@@ -174,22 +174,34 @@ class HomeImagePopup(tk.Toplevel):
             os.makedirs(buyers_dir, exist_ok=True)
 
             # Read existing emails (if any) to avoid duplicates (case-insensitive)
+            if not user_email:
+                messagebox.showwarning("No Email", "Cannot record buyer: current user has no email on file.")
+                return
+
             existing = set()
             if os.path.exists(buyers_path):
                 try:
                     with open(buyers_path, 'r', encoding='utf-8') as f:
                         reader = csv.reader(f)
                         for row in reader:
-                            if row:
-                                existing.add(row[1].strip().lower())
+                            # find any column in the row that looks like an email
+                            try:
+                                email_in_row = next((col.strip().lower() for col in row if '@' in col), None)
+                                if email_in_row:
+                                    existing.add(email_in_row)
+                            except Exception:
+                                # skip malformed rows but keep parsing the rest
+                                continue
                 except Exception:
                     # if file can't be read, treat as empty and continue
                     existing = set()
 
-            if user_email.strip().lower() in existing:
+            normalized = user_email.strip().lower()
+            if normalized in existing:
                 messagebox.showinfo("Already Recorded", "Your email is already listed as a buyer for this item.")
                 return
 
+            # append the (name, email) pair
             with open(buyers_path, 'a', newline='', encoding='utf-8') as f:
                 writer = csv.writer(f)
                 writer.writerow([user_name, user_email])

@@ -1,6 +1,7 @@
 from email import message
 import tkinter as tk
 from tkinter import messagebox
+from unittest import result
 from UserCurrent import UserCurrent
 from UserDatabase import UserDatabase
 
@@ -50,8 +51,9 @@ class CreateUserPage(tk.Frame):
 
     def create_and_return(self):
         '''Create account and return to sign-in page.'''
-        self.create_acc_data_to_csv(self.name_entry, self.email_entry, self.password_entry)
-        self.controller.show_frame("SignInPage")
+        result = self.create_acc_data_to_csv(self.name_entry, self.email_entry, self.password_entry)
+        if result:
+            self.controller.show_frame("SignInPage")
 
     @staticmethod
     def create_acc_data_to_csv(name_entry, email_entry, password_entry):
@@ -69,6 +71,9 @@ class CreateUserPage(tk.Frame):
             curUser = UserCurrent.check_if_user_exists_by_email(email)
             if curUser:
                 errorMessage = "Input Error", "User already exists. Please use a different email."
+                noError = False
+            elif not email.endswith("@my.csun.edu"):
+                errorMessage = "Input Error", "Email must be a CSUN email."
                 noError = False
             else:
                 UserDatabase.create_account(name, email, password)

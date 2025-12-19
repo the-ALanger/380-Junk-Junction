@@ -219,8 +219,34 @@ class UserImagePopup(tk.Toplevel):
                 with open(buyers_path, 'r', encoding='utf-8') as f:
                     reader = csv.reader(f)
                     for row in reader:
-                        if row:
-                            buyers.append(row[0].strip())
+                        if not row:
+                            continue
+                        # Prefer (name, email) in first two columns when available
+                        name = None
+                        email = None
+                        if len(row) >= 2:
+                            name = row[0].strip()
+                            email = row[1].strip()
+                        else:
+                            for col in row:
+                                col = col.strip()
+                                if '@' in col and '.' in col:
+                                    email = col
+                                elif not name and col:
+                                    name = col
+                        if not name and email:
+                            # derive a display name from the email local part
+                            name = email.split('@', 1)[0]
+                        if not name:
+                            name = "Unknown"
+
+                        # Pad name  
+                        name_padded = name.ljust(30)
+                        if email:
+                            display = f"{name_padded}\t\t{email}"
+                        else:
+                            display = name_padded
+                        buyers.append(display)
             except Exception as e:
                 messagebox.showerror("Error", f"Failed to read buyers file: {e}")
                 return
